@@ -1,0 +1,12 @@
+{
+  "extends": "tslint-config-airbnb",
+  "rules": {
+    "import-name": { "severity": "none" },
+    "variable-name": { "severity": "none" },
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "ter-arrow-parens": { "severity": "none" },
+    "ter-indent": { "severity": "none" },
+    "max-line-length": { "options": { "limit": 120 } },
+    "align": { "severity": "none" }
+  }
+}
