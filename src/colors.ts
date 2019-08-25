@@ -1,16 +1,11 @@
-import { deepOrange } from '@material-ui/core/colors';
-
-export const BACKGROUND = '#fafafc';
-export const PRIMARY = '#00bd56';
-export const SECONDARY = deepOrange[400];
-export const GREY = '#BDBDBD';
-export const LIGHT_GREY = '#e9e9e9';
-export const DARK_GREY = '#757575';
-export const HOVER_GREY = '#F5F5F5';
-export const BLACK_TEXT = '#212121';
-export const BLUE = '#1976D2';
-export const LIGHT_BLUE = '#4FC3F7';
-export const DARK_BLUE = '#1976D2';
-export const GREEN = '#57C478';
-export const PURPLE = '#BA68C8';
-export const RED = '#F44336';
+export const BACKGROUND = '#F7F7F7';
+export const PRIMARY = '#F62F5E';
+export const SECONDARY = '#6EB2FB';
+export const LIGHT_GREY = '#B4B4B4';
+export const DARK_GREY = '#6C6C6C';
+export const BLACK_TEXT = '#2e2e2e';
+export const BLUE = '#6EB2FB';
+export const GREEN = '#00D3CA';
+export const RED = '#F62F5E';
+export const ORANGE = '#F1AD3D';
+export const YELLOW = '#EFFC90';
