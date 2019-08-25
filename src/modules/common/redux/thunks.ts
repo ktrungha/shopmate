@@ -18,12 +18,12 @@ export function fetchThunk(
       let res;
       try {
         const headers = {
-          login_token: get(ACCESS_TOKEN) || '',
+          'user-key': get(ACCESS_TOKEN) || '',
           'Content-Type': 'application/json',
           'Accept-Language': getState().intl.locale.substring(0, 2),
         };
         if (!auth) {
-          delete headers.login_token;
+          delete headers['user-key'];
         }
 
         if (body instanceof FormData) {
@@ -55,7 +55,7 @@ export function fetchThunk(
 
       let hasInternet = true;
       try {
-        await fetch('https://tripi.vn', { mode: 'no-cors' });
+        await fetch('https://google.com', { mode: 'no-cors' });
       } catch (_) {
         hasInternet = false;
       }

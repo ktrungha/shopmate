@@ -1,1 +1,11 @@
-{}
+{
+  "header.hi": "Hi! {signIn} or {register}",
+
+  "serverProblem": "Problem with server at the moment. Please try again.",
+
+  "signIn": "Sign in",
+  "register": "Register",
+  "dailyDeals": "Daily deals",
+  "sell": "Sell",
+  "helpContact": "Help and contact"
+}

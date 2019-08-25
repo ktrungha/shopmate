@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { BLUE, DARK_BLUE, RED } from '../../../colors';
+import { BLUE, RED } from '../../../colors';
 import { ROUTES } from '../../../constants';
 import { AppState } from '../../../redux/reducers';
 import { BootstrapInput } from '../../common/components/elements';
@@ -88,7 +88,7 @@ export default connect(mapState2Props)(
                   </div>
                   <div
                     style={{
-                      color: DARK_BLUE,
+                      color: BLUE,
                       cursor: 'pointer',
                       display: 'flex',
                       justifyContent: 'flex-end',

@@ -1,7 +1,7 @@
-import { InputBase, Tab, Tabs, withStyles } from '@material-ui/core';
+import { InputBase, withStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import { GREY } from '../../../colors';
+import { DARK_GREY } from '../../../colors';
 
 export const CheckBox = styled.input``;
 
@@ -16,7 +16,7 @@ export const subHeader2: React.CSSProperties = {
 export const BootstrapInput = withStyles(theme => ({
   root: {
     borderRadius: 4,
-    border: `1px solid ${GREY}`,
+    border: `1px solid ${DARK_GREY}`,
   },
   input: {
     borderRadius: 4,
@@ -39,26 +39,6 @@ export const BootstrapInput = withStyles(theme => ({
   },
 }))(InputBase);
 
-export const CustomTabs = withStyles(theme => ({
-  root: {
-    borderBottom: `1px solid ${GREY}`,
-  },
-  indicator: {
-    backgroundColor: theme.palette.primary.main,
-    height: 4,
-  },
-}))(Tabs);
-
-export const CustomTab = withStyles(theme => ({
-  root: {
-    textTransform: 'none',
-    fontWeight: 500,
-  },
-  selected: {
-    color: theme.palette.primary.main,
-  },
-}))(Tab);
-
 export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -69,4 +49,9 @@ export const PageWrapper = styled.div`
 // cannot use inline, do this to have vendor prefix for sticky
 export const StickyDiv = styled.div`
   position: sticky;
+`;
+
+export const Line = styled.div`
+  display: flex;
+  align-items: center;
 `;

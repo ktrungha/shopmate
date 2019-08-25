@@ -1,19 +1,14 @@
 const proxy = require('http-proxy-middleware');
 
-var proxyTable = {
-  '/api/service1': 'https://service1.api.com',
-};
-
 module.exports = function(app) {
   app.use(
     proxy('/api/', {
-      target: 'https://sample.com',
+      target: 'https://backendapi.turing.com',
       changeOrigin: true,
       secure: false,
       pathRewrite: {
-        '^/api/service1/': '/',
+        '^/api/': '/',
       },
-      proxyTable,
       logLevel: 'debug',
     }),
   );

@@ -9,9 +9,14 @@ import AuthDialogs from './modules/auth/components/AuthDialogs';
 import { closeAuthDialog, validateAccessToken } from './modules/auth/redux/authReducer';
 import NetworkProblemDialog from './modules/common/components/NetworkProblemDialog';
 import ScrollToTop from './modules/common/components/ScrollToTop';
-import { setNetworkError } from './modules/common/redux/reducer';
+import { setNetworkError, initData } from './modules/common/redux/reducer';
 import { AppState } from './redux/reducers';
 import { getMUITheme, getTheme } from './setupTheme';
+import All from './modules/listing/pages/All';
+import Product from './modules/detail/pages/Product';
+import Department from './modules/listing/pages/Department';
+import Category from './modules/listing/pages/Category';
+import { ROUTES } from './constants';
 
 const mapStateToProps = (state: AppState) => ({
   auth: state.auth,
@@ -28,6 +33,7 @@ class App extends Component<Props, {}> {
   async componentDidMount() {
     const { dispatch } = this.props;
     dispatch(validateAccessToken());
+    dispatch(initData());
   }
 
   render() {
@@ -38,12 +44,15 @@ class App extends Component<Props, {}> {
         <MUIThemeProvider theme={getMUITheme()}>
           <NetworkProblemDialog
             msgId={networkErrorMsg}
-            onClose={() => dispatch(setNetworkError(undefined))}
+            onClose={() => dispatch(setNetworkError())}
           />
           <AuthDialogs authDialog={authDialog} close={() => dispatch(closeAuthDialog())} />
           <ScrollToTop>
             <Switch>
-              <Route exact path="/" render={() => <div />} />
+              <Route exact path="/" component={All} />
+              <Route exact path={ROUTES.department.value} component={Department} />
+              <Route exact path="/category" component={Category} />
+              <Route exact path="/product/:id" component={Product} />
             </Switch>
           </ScrollToTop>
         </MUIThemeProvider>
