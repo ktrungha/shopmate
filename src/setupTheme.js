@@ -70,15 +70,15 @@ export function getMUITheme() {
         color: '#2e2e2e',
       },
       body1: {
-        fontFamily: 'OpenSans',
+        fontFamily: 'Open Sans',
         fontWeight: 300,
         fontSize: '16px',
         lineHeight: '24px',
         color: '#6c6c6c',
       },
       body2: {
-        fontFamily: 'OpenSans',
-        fontWeight: 'normal',
+        fontFamily: 'Open Sans',
+        fontWeight: 400,
         fontSize: '12px',
         lineHeight: '24px',
         color: '#6c6c6c',

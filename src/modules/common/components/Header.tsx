@@ -65,28 +65,34 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
           </Line>
         </Container>
       </div>
-      <div style={{ background: BLACK_TEXT }}>
+      <div style={{ background: light ? 'white' : BLACK_TEXT, color: 'white' }}>
         <Container>
           <Line style={{ height: '72px', padding: '0 10px' }}>
             <Typography variant="h2" color="primary">
               SHOPMATE
             </Typography>
-            <Line
-              style={{
-                flex: 1,
-                marginLeft: '100px',
-                maxWidth: '300px',
-                justifyContent: 'space-between',
-              }}
-            >
-              {departments.map(one => (
-                <Typography variant="subtitle1" key={one.department_id}>
-                  <Link to={ROUTES.department.gen(one.department_id)} style={{ color: 'white' }}>
-                    {one.name}
+            {!light && (
+              <Line
+                style={{
+                  flex: 1,
+                  marginLeft: '100px',
+                  maxWidth: '300px',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {departments.map(one => (
+                  <Link
+                    style={{ color: 'white' }}
+                    key={one.department_id}
+                    to={ROUTES.department.gen(one.department_id)}
+                  >
+                    <Typography variant="subtitle1" color="inherit">
+                      {one.name}
+                    </Typography>
                   </Link>
-                </Typography>
-              ))}
-            </Line>
+                ))}
+              </Line>
+            )}
           </Line>
         </Container>
       </div>
