@@ -11,6 +11,7 @@ export const ROUTES = {
   signUp: '/signUp',
   department: { gen: (id: string | number) => `/department/${id}`, value: '/department/:id' },
   category: { gen: (id: string | number) => `/category/${id}`, value: '/category/:id' },
+  product: { gen: (id: string | number) => `/product/${id}`, value: '/product/:id' },
 };
 
 const API_BASE = DEV ? '/api' : 'https://backendapi.turing.com';
@@ -25,6 +26,8 @@ export const API_PATHS = {
   getDepartment: (id: string) => `${API_BASE}/departments/${id}`,
   productsOfCategory: (id: string) => `${API_BASE}/products/inCategory/${id}`,
   getCategory: (id: string) => `${API_BASE}/categories/${id}`,
+  product: (id: string) => `${API_BASE}/products/${id}`,
+  productAttributes: (id: string) => `${API_BASE}/attributes/inProduct/${id}`,
   login: '',
   tmp: 'tmp',
 };

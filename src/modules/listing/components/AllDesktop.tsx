@@ -1,14 +1,13 @@
+import { Container, Typography } from '@material-ui/core';
 import * as React from 'react';
+import { LIGHT_GREY } from '../../../colors';
+import { ROUTES, some } from '../../../constants';
 import { PageWrapper } from '../../common/components/elements';
-import Header from '../../common/components/Header';
-import { Container, Typography, Grid } from '@material-ui/core';
 import Footer from '../../common/components/Footer';
-import { some, ROUTES, PAGE_SIZE } from '../../../constants';
+import Header from '../../common/components/Header';
 import Link from '../../common/components/Link';
-import { LIGHT_GREY, BLUE } from '../../../colors';
-import ProductCard from './ProductCard';
-import { FormattedMessage } from 'react-intl';
 import { ProductsList } from '../../common/model';
+import ProductCardGrid from './ProductCardGrid';
 
 interface IAllDesktopProps {
   categories: some[];
@@ -20,23 +19,6 @@ interface IAllDesktopProps {
 
 const AllDesktop: React.FunctionComponent<IAllDesktopProps> = props => {
   const { categories, data, fetching, fetchMore, page } = props;
-
-  const fetchingGroup = (
-    <>
-      <Grid item sm={4} lg={3}>
-        <ProductCard />
-      </Grid>
-      <Grid item sm={4} lg={3}>
-        <ProductCard />
-      </Grid>
-      <Grid item sm={4} lg={3}>
-        <ProductCard />
-      </Grid>
-      <Grid item sm={4} lg={3}>
-        <ProductCard />
-      </Grid>
-    </>
-  );
 
   return (
     <PageWrapper>
@@ -56,38 +38,7 @@ const AllDesktop: React.FunctionComponent<IAllDesktopProps> = props => {
           </ul>
         </div>
         <div style={{ margin: '23px 0' }}>
-          {data ? (
-            <>
-              <Grid container spacing={5}>
-                {data.products.map(one => (
-                  <Grid key={one.product_id} item sm={4} lg={3}>
-                    <Link to="/">
-                      <ProductCard data={one} />
-                    </Link>
-                  </Grid>
-                ))}
-                {fetching && fetchingGroup}
-              </Grid>
-              {data.total - PAGE_SIZE * page > 0 && (
-                <div style={{ margin: '10px', textAlign: 'center' }}>
-                  <Typography
-                    variant="subtitle1"
-                    style={{ color: BLUE, cursor: 'pointer' }}
-                    onClick={fetchMore}
-                  >
-                    <FormattedMessage
-                      id="loadMore"
-                      values={{ num: data.total - PAGE_SIZE * page }}
-                    />
-                  </Typography>
-                </div>
-              )}
-            </>
-          ) : (
-            <Grid container spacing={5}>
-              {fetchingGroup}
-            </Grid>
-          )}
+          <ProductCardGrid fetchMore={fetchMore} page={page} fetching={fetching} data={data} />
         </div>
       </Container>
       <Footer />

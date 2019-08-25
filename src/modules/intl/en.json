@@ -11,5 +11,9 @@
   "contact": "Contact",
   "privacyPolicy": "Privacy policy",
 
-  "loadMore": "Load more ({num} remaining)"
+  "loadMore": "Load more ({num} remaining)",
+
+  "color": "Color",
+  "size": "Size",
+  "quantity": "Quantity"
 }

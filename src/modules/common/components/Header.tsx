@@ -22,7 +22,7 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
   const { light, departments } = props;
   return (
     <div>
-      <div>
+      <div style={{ background: light ? '#EFEFEF' : undefined }}>
         <Container>
           <Line style={{ height: '49px', padding: '0 10px' }}>
             <Typography variant="subtitle1">
