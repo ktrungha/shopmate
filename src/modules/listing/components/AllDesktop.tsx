@@ -6,13 +6,13 @@ import Footer from '../../common/components/Footer';
 import { some, ROUTES, PAGE_SIZE } from '../../../constants';
 import Link from '../../common/components/Link';
 import { LIGHT_GREY, BLUE } from '../../../colors';
-import { ProductData } from '../pages/All';
 import ProductCard from './ProductCard';
 import { FormattedMessage } from 'react-intl';
+import { ProductsList } from '../../common/model';
 
 interface IAllDesktopProps {
   categories: some[];
-  data: ProductData | null;
+  data: ProductsList | null;
   fetching: boolean;
   fetchMore(): void;
   page: number;
@@ -68,15 +68,20 @@ const AllDesktop: React.FunctionComponent<IAllDesktopProps> = props => {
                 ))}
                 {fetching && fetchingGroup}
               </Grid>
-              <div style={{ margin: '10px', textAlign: 'center' }}>
-                <Typography
-                  variant="subtitle1"
-                  style={{ color: BLUE, cursor: 'pointer' }}
-                  onClick={fetchMore}
-                >
-                  <FormattedMessage id="loadMore" values={{ num: data.total - PAGE_SIZE * page }} />
-                </Typography>
-              </div>
+              {data.total - PAGE_SIZE * page > 0 && (
+                <div style={{ margin: '10px', textAlign: 'center' }}>
+                  <Typography
+                    variant="subtitle1"
+                    style={{ color: BLUE, cursor: 'pointer' }}
+                    onClick={fetchMore}
+                  >
+                    <FormattedMessage
+                      id="loadMore"
+                      values={{ num: data.total - PAGE_SIZE * page }}
+                    />
+                  </Typography>
+                </div>
+              )}
             </>
           ) : (
             <Grid container spacing={5}>

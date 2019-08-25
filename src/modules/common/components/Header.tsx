@@ -68,9 +68,11 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
       <div style={{ background: light ? 'white' : BLACK_TEXT, color: 'white' }}>
         <Container>
           <Line style={{ height: '72px', padding: '0 10px' }}>
-            <Typography variant="h2" color="primary">
-              SHOPMATE
-            </Typography>
+            <Link to="/">
+              <Typography variant="h2" color="primary">
+                SHOPMATE
+              </Typography>
+            </Link>
             {!light && (
               <Line
                 style={{

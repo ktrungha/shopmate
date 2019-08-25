@@ -44,12 +44,13 @@ export function fetchThunk(
         }
 
         if (res.status === 400) {
-          return await res.json();
+          const json = await res.json();
+          throw new Error(json.message);
         }
         if (res.status === 401 || res.status === 403) {
           dispatch(out());
           remove(ACCESS_TOKEN);
-          return { code: res.status };
+          throw new Error('Invalid token');
         }
       }
 

@@ -26,7 +26,7 @@ interface IProductCardProps {
 
 const ProductCard: React.FunctionComponent<IProductCardProps> = props => {
   const { data } = props;
-  const [elevation, setElevation] = React.useState(1);
+  const [elevation, setElevation] = React.useState(2);
   if (!data) {
     return (
       <Paper style={baseStyle} elevation={1}>
@@ -41,8 +41,8 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = props => {
     <Paper
       style={baseStyle}
       elevation={elevation}
-      onMouseOver={() => setElevation(2)}
-      onMouseOut={() => setElevation(1)}
+      onMouseOver={() => setElevation(6)}
+      onMouseOut={() => setElevation(2)}
     >
       <ImageDiv>
         <img

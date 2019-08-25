@@ -51,7 +51,7 @@ class App extends Component<Props, {}> {
             <Switch>
               <Route exact path="/" component={All} />
               <Route exact path={ROUTES.department.value} component={Department} />
-              <Route exact path="/category" component={Category} />
+              <Route exact path={ROUTES.category.value} component={Category} />
               <Route exact path="/product/:id" component={Product} />
             </Switch>
           </ScrollToTop>

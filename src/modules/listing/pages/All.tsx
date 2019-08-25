@@ -1,19 +1,15 @@
+import { useMediaQuery, useTheme } from '@material-ui/core';
+import { stringify } from 'querystring';
 import * as React from 'react';
-import { AppState } from '../../../redux/reducers';
 import { connect } from 'react-redux';
-import { useTheme, useMediaQuery } from '@material-ui/core';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { API_PATHS, PAGE_SIZE } from '../../../constants';
+import { AppState } from '../../../redux/reducers';
+import { ProductsList } from '../../common/model';
+import { fetchThunk } from '../../common/redux/thunks';
 import AllDesktop from '../components/AllDesktop';
 import AllMobile from '../components/AllMobile';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { some, API_PATHS, PAGE_SIZE } from '../../../constants';
-import { fetchThunk } from '../../common/redux/thunks';
-import { stringify } from 'querystring';
-
-export interface ProductData {
-  products: some[];
-  total: number;
-}
 
 interface IAllProps extends ReturnType<typeof mapStateToProps> {
   dispatch: ThunkDispatch<AppState, null, AnyAction>;
@@ -25,7 +21,7 @@ const All: React.FunctionComponent<IAllProps> = props => {
 
   const { categories, dispatch } = props;
 
-  const [data, setData] = React.useState<ProductData | null>(null);
+  const [data, setData] = React.useState<ProductsList | null>(null);
   const [page, setPage] = React.useState(0);
   const [fetching, setFetching] = React.useState(false);
 
