@@ -5,7 +5,7 @@ import { some } from '../../../constants';
 import { AppState } from '../../../redux/reducers';
 import { ACCESS_TOKEN } from '../../auth/constants';
 import { out } from '../../auth/redux/authReducer';
-import { setNetworkError } from './reducer';
+import { setNetworkError } from './commonReducer';
 
 export function fetchThunk(
   url: string,

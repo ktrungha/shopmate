@@ -2,7 +2,7 @@ import { connectRouter, RouterState } from 'connected-react-router';
 import { History } from 'history';
 import { combineReducers } from 'redux';
 import intlReducer, { IntlState } from '../modules/intl/redux/intlReducer';
-import commonReducer, { CommonState } from '../modules/common/redux/reducer';
+import commonReducer, { CommonState } from '../modules/common/redux/commonReducer';
 import authReducer, { AuthState } from '../modules/auth/redux/authReducer';
 import accountReducer, { AccountState } from '../modules/account/redux/accountReducer';
 

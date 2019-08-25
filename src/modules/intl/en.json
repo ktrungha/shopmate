@@ -9,5 +9,7 @@
   "sell": "Sell",
   "helpContact": "Help and contact",
   "contact": "Contact",
-  "privacyPolicy": "Privacy policy"
+  "privacyPolicy": "Privacy policy",
+
+  "loadMore": "Load more ({num} remaining)"
 }

@@ -9,7 +9,7 @@ import AuthDialogs from './modules/auth/components/AuthDialogs';
 import { closeAuthDialog, validateAccessToken } from './modules/auth/redux/authReducer';
 import NetworkProblemDialog from './modules/common/components/NetworkProblemDialog';
 import ScrollToTop from './modules/common/components/ScrollToTop';
-import { setNetworkError, initData } from './modules/common/redux/reducer';
+import { setNetworkError, initData } from './modules/common/redux/commonReducer';
 import { AppState } from './redux/reducers';
 import { getMUITheme, getTheme } from './setupTheme';
 import All from './modules/listing/pages/All';
