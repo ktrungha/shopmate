@@ -11,6 +11,7 @@ import { AppState } from '../../../redux/reducers';
 import { AuthDialog, logout, setAuthDialog } from '../../auth/redux/authReducer';
 import { Line } from './elements';
 import Link from './Link';
+import SearchBox from './SearchBox';
 
 const ActionSpan = styled.span`
   color: ${RED};
@@ -70,22 +71,22 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
               style={{
                 flex: 1,
                 marginLeft: '100px',
-                maxWidth: '300px',
-                justifyContent: 'space-between',
+                justifyContent: 'flex-start',
               }}
             >
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" style={{ marginRight: '50px' }}>
                 <FormattedMessage id="dailyDeals" />
               </Typography>
 
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" style={{ marginRight: '50px' }}>
                 <FormattedMessage id="sell" />
               </Typography>
 
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" style={{ marginRight: '50px' }}>
                 <FormattedMessage id="helpContact" />
               </Typography>
             </Line>
+            <SearchBox />
           </Line>
         </Container>
       </div>

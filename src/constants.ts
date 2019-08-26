@@ -3,6 +3,7 @@ import { DEV } from './utils';
 export type some = { [key: string]: any };
 
 export const LS_LANG = 'lang';
+export const SEARCH_INPUT = 'input';
 
 export const PAGE_SIZE = 20;
 
@@ -12,6 +13,7 @@ export const ROUTES = {
   department: { gen: (id: string | number) => `/department/${id}`, value: '/department/:id' },
   category: { gen: (id: string | number) => `/category/${id}`, value: '/category/:id' },
   product: { gen: (id: string | number) => `/product/${id}`, value: '/product/:id' },
+  search: '/search',
 };
 
 const API_BASE = DEV ? '/api' : 'https://backendapi.turing.com';
@@ -28,6 +30,7 @@ export const API_PATHS = {
   getCategory: (id: string) => `${API_BASE}/categories/${id}`,
   product: (id: string) => `${API_BASE}/products/${id}`,
   productAttributes: (id: string) => `${API_BASE}/attributes/inProduct/${id}`,
+  search: `${API_BASE}/products/search`,
   customers: `${API_BASE}/customers`,
   customer: `${API_BASE}/customer`,
   login: `${API_BASE}/customers/login`,

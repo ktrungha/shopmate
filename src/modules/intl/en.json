@@ -30,5 +30,8 @@
   "auth.forgotPassword": "Forgot password",
   "auth.noAccount": "Don't have an account",
   "auth.alreadyMember": "Already a member",
-  "auth.cannotCreateAccount": "Cannot create account!"
+  "auth.cannotCreateAccount": "Cannot create account!",
+
+  "searchAnything": "Search anything",
+  "searchInput": "Searching: {input}"
 }

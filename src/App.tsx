@@ -17,6 +17,7 @@ import Product from './modules/detail/pages/Product';
 import Department from './modules/listing/pages/Department';
 import Category from './modules/listing/pages/Category';
 import { ROUTES } from './constants';
+import Search from './modules/listing/pages/Search';
 
 const mapStateToProps = (state: AppState) => ({
   auth: state.auth,
@@ -52,7 +53,8 @@ class App extends Component<Props, {}> {
               <Route exact path="/" component={All} />
               <Route exact path={ROUTES.department.value} component={Department} />
               <Route exact path={ROUTES.category.value} component={Category} />
-              <Route exact path="/product/:id" component={Product} />
+              <Route exact path={ROUTES.product.value} component={Product} />
+              <Route exact path={ROUTES.search} component={Search} />
             </Switch>
           </ScrollToTop>
         </MUIThemeProvider>

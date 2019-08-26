@@ -47,7 +47,7 @@ const ProductCardGrid: React.FunctionComponent<IProductCardGridProps> = props =>
           ))}
           {fetching && fetchingGroup}
         </Grid>
-        {data.total - PAGE_SIZE * page > 0 && (
+        {data.total - PAGE_SIZE * page > 0 && !fetching && (
           <div style={{ margin: '10px auto', maxWidth: '300px', textAlign: 'center' }}>
             <Typography
               variant="subtitle1"
