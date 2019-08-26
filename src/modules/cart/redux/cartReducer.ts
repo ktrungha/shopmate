@@ -6,6 +6,7 @@ import { API_PATHS, CART_ID_KEY, some } from '../../../constants';
 import { AppState } from '../../../redux/reducers';
 import { makeCancelOldThunk } from '../../../utils';
 import { fetchThunk } from '../../common/redux/thunks';
+import { merge } from 'lodash';
 
 export interface CartState {
   content?: some[];
@@ -46,6 +47,39 @@ export const addToCart = makeCancelOldThunk(
     };
   },
 );
+
+export const updateCartItem = makeCancelOldThunk((controller, id: string, quantity: number) => {
+  return async (dispatch, getState) => {
+    dispatch(setFetching(true));
+    try {
+      const json = await dispatch(
+        fetchThunk(`${API_PATHS.updateCart(id)}`, 'put', true, stringify({ quantity })),
+      );
+      if (controller.cancelled) {
+        return;
+      }
+      const content = [...(getState().cart.content || [])];
+      dispatch(setCartContent(merge(content, json) as some[]));
+    } finally {
+      dispatch(setFetching(false));
+    }
+  };
+});
+
+export const cartRemove = makeCancelOldThunk((controller, id: string) => {
+  return async (dispatch, getState) => {
+    dispatch(setFetching(true));
+    try {
+      await dispatch(fetchThunk(`${API_PATHS.cartRemove(id)}`, 'delete', true));
+      if (controller.cancelled) {
+        return;
+      }
+      dispatch(retrieveCart());
+    } finally {
+      dispatch(setFetching(false));
+    }
+  };
+});
 
 export function retrieveCart(): ThunkAction<void, AppState, null, AnyAction> {
   return async (dispatch, getState) => {

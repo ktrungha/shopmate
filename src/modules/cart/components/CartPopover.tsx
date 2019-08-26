@@ -1,16 +1,18 @@
-import * as React from 'react';
-import { Paper, IconButton, Typography, Button } from '@material-ui/core';
+import { Button, IconButton, Paper, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { some, PRODUCT_IMAGE_BASE } from '../../../constants';
-import { Line } from '../../common/components/elements';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
 import { LIGHT_GREY } from '../../../colors';
+import { PRODUCT_IMAGE_BASE, some } from '../../../constants';
+import { AppState } from '../../../redux/reducers';
 import remove from '../../../svg/redClose.svg';
+import { Line } from '../../common/components/elements';
 import QuantityBox from '../../common/components/QuantityBox';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { setCartContent } from '../redux/cartReducer';
+import { cartRemove, setCartContent, updateCartItem } from '../redux/cartReducer';
 
 const ItemDiv = styled.div`
   min-width: 250px;
@@ -46,7 +48,7 @@ const PriceDiv = styled.div`
 interface ICartPopoverProps {
   close(): void;
   content: some[];
-  dispatch: Dispatch;
+  dispatch: ThunkDispatch<AppState, null, AnyAction>;
 }
 
 const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
@@ -130,7 +132,7 @@ const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
                   <Line style={{ position: 'relative', marginLeft: '24px', alignSelf: 'stretch' }}>
                     <Typography variant="body1">{one.name}</Typography>
                     <Line style={{ position: 'absolute', bottom: 0, height: '26px' }}>
-                      <IconButton size="small">
+                      <IconButton size="small" onClick={() => dispatch(cartRemove(one.item_id))}>
                         <img alt="" src={remove} />
                       </IconButton>
                       &nbsp;
@@ -152,6 +154,7 @@ const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
                       const newContent = [...content];
                       newContent[index] = { ...one, quantity: q };
                       dispatch(setCartContent(newContent));
+                      dispatch(updateCartItem(one.item_id, q));
                     }}
                   />
                 </QuantityDiv>

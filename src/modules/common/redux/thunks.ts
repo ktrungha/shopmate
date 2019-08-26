@@ -9,7 +9,7 @@ import { setNetworkError } from './commonReducer';
 
 export function fetchThunk(
   url: string,
-  method: 'get' | 'post' = 'get',
+  method: 'delete' | 'put' | 'get' | 'post' = 'get',
   auth = true,
   body?: string | FormData,
   contentType?: string,
@@ -39,6 +39,9 @@ export function fetchThunk(
 
       if (res) {
         if (res.ok) {
+          if (method === 'delete') {
+            return {};
+          }
           const json = await res.json();
           return json;
         }
