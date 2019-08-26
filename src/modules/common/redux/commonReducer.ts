@@ -4,6 +4,7 @@ import { AppState } from '../../../redux/reducers';
 import { AnyAction } from 'redux';
 import { fetchThunk } from './thunks';
 import { API_PATHS, some } from '../../../constants';
+import { retrieveCart } from '../../cart/redux/cartReducer';
 
 export interface CommonState {
   readonly networkErrorMsg?: string;
@@ -26,6 +27,8 @@ export const setCategories = createAction('common/setCategories', resolve => (da
 
 export function initData(): ThunkAction<void, AppState, null, AnyAction> {
   return async (dispatch, getState) => {
+    dispatch(retrieveCart());
+
     const [departments, json] = await Promise.all([
       dispatch(fetchThunk(`${API_PATHS.getDepartments}`)),
       dispatch(fetchThunk(`${API_PATHS.getCategories}`)),

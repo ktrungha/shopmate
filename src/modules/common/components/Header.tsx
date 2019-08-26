@@ -12,6 +12,7 @@ import { AuthDialog, logout, setAuthDialog } from '../../auth/redux/authReducer'
 import { Line } from './elements';
 import Link from './Link';
 import SearchBox from './SearchBox';
+import CartBadge from '../../cart/components/CartBadge';
 
 const ActionSpan = styled.span`
   color: ${RED};
@@ -30,47 +31,49 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
       <div style={{ background: light ? '#EFEFEF' : undefined }}>
         <Container>
           <Line style={{ height: '49px', padding: '0 10px' }}>
-            {auth && userData ? (
-              <>
-                <Typography variant="subtitle1">
-                  <FormattedMessage id="header.hiAuth" values={{ name: userData.name }} />
-                </Typography>
-                &nbsp;
-                <Button
-                  style={{ borderRadius: '23px' }}
-                  size="small"
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => dispatch(logout())}
-                >
-                  <Typography variant="body2" color="inherit">
-                    <FormattedMessage id="signOut" />
+            <Line style={{ width: '200px' }}>
+              {auth && userData ? (
+                <>
+                  <Typography variant="subtitle1">
+                    <FormattedMessage id="header.hiAuth" values={{ name: userData.name }} />
                   </Typography>
-                </Button>
-              </>
-            ) : (
-              <Typography variant="subtitle1">
-                <FormattedMessage
-                  id="header.hi"
-                  values={{
-                    signIn: (
-                      <ActionSpan onClick={() => dispatch(setAuthDialog(AuthDialog.login))}>
-                        <FormattedMessage id="signIn" />
-                      </ActionSpan>
-                    ),
-                    register: (
-                      <ActionSpan onClick={() => dispatch(setAuthDialog(AuthDialog.signUp))}>
-                        <FormattedMessage id="register" />
-                      </ActionSpan>
-                    ),
-                  }}
-                />
-              </Typography>
-            )}
+                  &nbsp;
+                  <Button
+                    style={{ borderRadius: '23px' }}
+                    size="small"
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => dispatch(logout())}
+                  >
+                    <Typography variant="body2" color="inherit">
+                      <FormattedMessage id="signOut" />
+                    </Typography>
+                  </Button>
+                </>
+              ) : (
+                <Typography variant="subtitle1">
+                  <FormattedMessage
+                    id="header.hi"
+                    values={{
+                      signIn: (
+                        <ActionSpan onClick={() => dispatch(setAuthDialog(AuthDialog.login))}>
+                          <FormattedMessage id="signIn" />
+                        </ActionSpan>
+                      ),
+                      register: (
+                        <ActionSpan onClick={() => dispatch(setAuthDialog(AuthDialog.signUp))}>
+                          <FormattedMessage id="register" />
+                        </ActionSpan>
+                      ),
+                    }}
+                  />
+                </Typography>
+              )}
+            </Line>
             <Line
               style={{
                 flex: 1,
-                marginLeft: '100px',
+                marginLeft: '20px',
                 justifyContent: 'flex-start',
               }}
             >
@@ -87,6 +90,7 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
               </Typography>
             </Line>
             <SearchBox />
+            <CartBadge />
           </Line>
         </Container>
       </div>

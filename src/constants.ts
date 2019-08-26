@@ -4,6 +4,7 @@ export type some = { [key: string]: any };
 
 export const LS_LANG = 'lang';
 export const SEARCH_INPUT = 'input';
+export const CART_ID_KEY = 'cartId';
 
 export const PAGE_SIZE = 20;
 
@@ -34,4 +35,7 @@ export const API_PATHS = {
   customers: `${API_BASE}/customers`,
   customer: `${API_BASE}/customer`,
   login: `${API_BASE}/customers/login`,
+  getCart: (id: string) => `${API_BASE}/shoppingcart/${id}`,
+  createCart: `${API_BASE}/shoppingcart/generateUniqueId`,
+  addToCart: `${API_BASE}/shoppingcart/add`,
 };

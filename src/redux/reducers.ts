@@ -5,6 +5,7 @@ import intlReducer, { IntlState } from '../modules/intl/redux/intlReducer';
 import commonReducer, { CommonState } from '../modules/common/redux/commonReducer';
 import authReducer, { AuthState } from '../modules/auth/redux/authReducer';
 import accountReducer, { AccountState } from '../modules/account/redux/accountReducer';
+import cartReducer, { CartState } from '../modules/cart/redux/cartReducer';
 
 export interface AppState {
   router: RouterState;
@@ -12,6 +13,7 @@ export interface AppState {
   common: CommonState;
   auth: AuthState;
   account: AccountState;
+  cart: CartState;
 }
 
 export default (history: History) =>
@@ -21,4 +23,5 @@ export default (history: History) =>
     common: commonReducer,
     auth: authReducer,
     account: accountReducer,
+    cart: cartReducer,
   });

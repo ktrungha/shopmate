@@ -9,8 +9,11 @@ import { AppState } from '../../../redux/reducers';
 import { fetchThunk } from '../../common/redux/thunks';
 import ProductDesktop from '../components/ProductDesktop';
 import ProductMobile from '../components/ProductMobile';
+import { addToCart } from '../../cart/redux/cartReducer';
 
-export interface IProductProps extends RouteComponentProps<{ id: string }> {
+export interface IProductProps
+  extends RouteComponentProps<{ id: string }>,
+    ReturnType<typeof mapStateToProps> {
   dispatch: ThunkDispatch<AppState, null, AnyAction>;
 }
 
@@ -19,13 +22,13 @@ const Product: React.FC<IProductProps> = props => {
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
 
   const id = props.match.params.id;
-  const { dispatch } = props;
+  const { dispatch, cartContent, fetching } = props;
 
   const [productDetails, setProductDetails] = React.useState<some | null>(null);
   const [attributes, setAttributes] = React.useState<some[] | null>(null);
   const [color, setColor] = React.useState<string | undefined>();
   const [size, setSize] = React.useState<string | undefined>();
-  const [quantity, setQuantity] = React.useState<number>(0);
+  const [quantity, setQuantity] = React.useState<number>(1);
 
   // fetch product info and attributes
   React.useEffect(() => {
@@ -40,6 +43,13 @@ const Product: React.FC<IProductProps> = props => {
     fetch();
   }, [dispatch, id]);
 
+  const addToCartCaller =
+    cartContent && productDetails
+      ? () => {
+          dispatch(addToCart(productDetails.product_id, JSON.stringify({ size, color }), quantity));
+        }
+      : undefined;
+
   if (desktop) {
     return (
       <ProductDesktop
@@ -51,10 +61,16 @@ const Product: React.FC<IProductProps> = props => {
         setQuantity={setQuantity}
         color={color}
         setColor={setColor}
+        addToCart={addToCartCaller}
+        fetching={fetching}
       />
     );
   }
   return <ProductMobile />;
 };
 
-export default connect()(withRouter(Product));
+function mapStateToProps(state: AppState) {
+  return { cartContent: state.cart.content, fetching: state.cart.fetching };
+}
+
+export default connect(mapStateToProps)(withRouter(Product));

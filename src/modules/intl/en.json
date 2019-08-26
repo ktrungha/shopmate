@@ -21,6 +21,11 @@
   "quantity": "Quantity",
   "addToCart": "Add to cart",
   "addToWishList": "Add to wish list",
+  "item": "Item",
+  "price": "Price",
+  "remove": "Remove",
+  "backToShop": "Back to Shop",
+  "checkout": "Checkout",
 
   "auth.signIn": "Sign In",
   "auth.signUp": "Sign Up",
@@ -33,5 +38,6 @@
   "auth.cannotCreateAccount": "Cannot create account!",
 
   "searchAnything": "Search anything",
-  "searchInput": "Searching: {input}"
+  "searchInput": "Searching: {input}",
+  "itemsInCart": "{num, plural, one {# item} other {# items} } in your cart"
 }

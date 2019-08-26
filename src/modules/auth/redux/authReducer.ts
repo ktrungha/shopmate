@@ -84,13 +84,7 @@ export function signUp(
   return async (dispatch, getState) => {
     const name = 'John Smith';
     const json = await dispatch(
-      fetchThunk(
-        `${API_PATHS.customers}`,
-        'post',
-        false,
-        stringify({ name, email, password }),
-        'application/x-www-form-urlencoded',
-      ),
+      fetchThunk(`${API_PATHS.customers}`, 'post', false, stringify({ name, email, password })),
     );
     set(ACCESS_TOKEN, json.accessToken);
     dispatch(authIn(json.customer));
@@ -105,13 +99,7 @@ export function login(
     dispatch(setAuthenticating(true));
     try {
       const json = await dispatch(
-        fetchThunk(
-          API_PATHS.login,
-          'post',
-          false,
-          stringify({ password, email }),
-          'application/x-www-form-urlencoded',
-        ),
+        fetchThunk(API_PATHS.login, 'post', false, stringify({ password, email })),
       );
 
       set(ACCESS_TOKEN, json.accessToken);

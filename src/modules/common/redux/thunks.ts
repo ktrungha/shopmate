@@ -20,7 +20,7 @@ export function fetchThunk(
       try {
         const headers = {
           'user-key': get(ACCESS_TOKEN) || '',
-          'Content-Type': contentType || 'application/json',
+          'Content-Type': contentType || 'application/x-www-form-urlencoded',
         };
         if (!auth) {
           delete headers['user-key'];

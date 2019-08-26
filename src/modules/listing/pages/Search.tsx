@@ -48,7 +48,11 @@ const Search: React.FunctionComponent<ISearchProps> = props => {
       setFetching(true);
       const json = await dispatch(
         fetchThunk(
-          `${API_PATHS.search}?${stringify({ query_string: input, page: 1, limit: PAGE_SIZE })}`,
+          `${API_PATHS.search}?${stringify({
+            query_string: input,
+            page: page + 1,
+            limit: PAGE_SIZE,
+          })}`,
         ),
       );
       setData({ products: data.products.concat(json.rows), total: json.count });

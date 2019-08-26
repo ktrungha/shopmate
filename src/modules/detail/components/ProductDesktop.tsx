@@ -1,15 +1,15 @@
-import { Container, IconButton, Typography, Button } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DARK_GREY, LIGHT_GREY, PRIMARY } from '../../../colors';
 import { PRODUCT_IMAGE_BASE, some } from '../../../constants';
-import minus from '../../../svg/minus.svg';
-import plus from '../../../svg/plus.svg';
+import heart from '../../../svg/redHeart.svg';
 import { Line, PageWrapper } from '../../common/components/elements';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
+import LoadingButton from '../../common/components/LoadingButton';
 import LoadingIcon from '../../common/components/LoadingIcon';
-import heart from '../../../svg/redHeart.svg';
+import QuantityBox from '../../common/components/QuantityBox';
 
 interface IProductDesktopProps {
   data: some | null;
@@ -20,10 +20,23 @@ interface IProductDesktopProps {
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   color?: string;
   setColor: React.Dispatch<React.SetStateAction<string | undefined>>;
+  addToCart?: () => void;
+  fetching: boolean;
 }
 
 const ProductDesktop: React.FunctionComponent<IProductDesktopProps> = props => {
-  const { data, attributes, size, setSize, quantity, setQuantity, color, setColor } = props;
+  const {
+    data,
+    attributes,
+    size,
+    setSize,
+    quantity,
+    setQuantity,
+    color,
+    setColor,
+    addToCart,
+    fetching,
+  } = props;
   return (
     <PageWrapper>
       <Header light />
@@ -122,54 +135,23 @@ const ProductDesktop: React.FunctionComponent<IProductDesktopProps> = props => {
                       <FormattedMessage id="quantity" />
                     </Typography>
                   </div>
-                  <Line
-                    style={{
-                      display: 'flex',
-                      marginTop: '15px',
-                    }}
-                  >
-                    <div style={{ marginRight: '4px' }}>
-                      <IconButton
-                        onClick={() => setQuantity(q => q - 1)}
-                        style={{ background: '#EFEFEF' }}
-                        disabled={quantity < 1}
-                      >
-                        <img src={minus} alt="" />
-                      </IconButton>
-                    </div>
-                    <Line
-                      style={{
-                        width: '50px',
-                        height: '36px',
-                        borderRadius: '100px',
-                        border: `1px solid ${LIGHT_GREY}`,
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Typography variant="h3">{quantity}</Typography>
-                    </Line>
-                    <div style={{ marginLeft: '4px' }}>
-                      <IconButton
-                        onClick={() => setQuantity(q => q + 1)}
-                        style={{ background: '#EFEFEF' }}
-                      >
-                        <img src={plus} alt="" />
-                      </IconButton>
-                    </div>
-                  </Line>
+                  <QuantityBox quantity={quantity} setQuantity={q => setQuantity(q)} />
                 </div>
                 <div style={{ marginTop: '30px' }}>
                   <Line>
-                    <Button
+                    <LoadingButton
                       color="primary"
                       variant="contained"
                       size="large"
                       style={{ height: '60px', borderRadius: '30px' }}
+                      disabled={!addToCart}
+                      onClick={addToCart}
+                      loading={fetching}
                     >
                       <Typography variant="h3" style={{ color: 'white' }}>
                         <FormattedMessage id="addToCart" />
                       </Typography>
-                    </Button>
+                    </LoadingButton>
                     <Line style={{ marginLeft: '44px', cursor: 'pointer' }}>
                       <img alt="" src={heart} style={{ marginRight: '7px' }} />
                       <Typography variant="body2">
