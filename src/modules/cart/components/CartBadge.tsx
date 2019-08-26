@@ -6,13 +6,15 @@ import { AppState } from '../../../redux/reducers';
 import bag from '../../../svg/bag.svg';
 import { Line } from '../../common/components/elements';
 import CartPopover from './CartPopover';
+import CheckoutPopover from '../../checkout/components/CheckoutPopover';
 
 interface ICartBadgeProps extends ReturnType<typeof mapStateToProps> {}
 
 const CartBadge: React.FunctionComponent<ICartBadgeProps> = props => {
-  const { content } = props;
+  const { content, tax } = props;
 
-  const [showPopover, setShowPopover] = React.useState(true);
+  const [showCartPopover, setShowCartPopover] = React.useState(false);
+  const [showCheckoutPopover, setShowCheckoutPopover] = React.useState(true);
 
   return (
     <>
@@ -35,21 +37,32 @@ const CartBadge: React.FunctionComponent<ICartBadgeProps> = props => {
             {content.length > 9 ? '9+' : content.length}
           </Line>
         )}
-        <IconButton onClick={() => setShowPopover(true)}>
+        <IconButton onClick={() => setShowCartPopover(true)}>
           <img alt="" src={bag} />
         </IconButton>
       </div>
-      {showPopover && content && (
-        <div style={{ position: 'absolute', left: 0, right: 0, top: '50px', zIndex: 100 }}>
-          <CartPopover close={() => setShowPopover(false)} content={content} />
-        </div>
-      )}
+
+      <div style={{ position: 'absolute', left: 0, right: 0, top: '50px', zIndex: 100 }}>
+        {showCartPopover && content && (
+          <CartPopover
+            close={() => setShowCartPopover(false)}
+            content={content}
+            checkout={() => {
+              setShowCartPopover(false);
+              setShowCheckoutPopover(true);
+            }}
+          />
+        )}
+        {showCheckoutPopover && content && content.length && tax && (
+          <CheckoutPopover close={() => setShowCheckoutPopover(false)} tax={tax} />
+        )}
+      </div>
     </>
   );
 };
 
 function mapStateToProps(state: AppState) {
-  return { content: state.cart.content };
+  return { content: state.cart.content, tax: state.common.tax };
 }
 
 export default connect(mapStateToProps)(CartBadge);

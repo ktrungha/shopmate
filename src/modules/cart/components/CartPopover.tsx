@@ -49,6 +49,7 @@ interface ICartPopoverProps {
   close(): void;
   content: some[];
   dispatch: ThunkDispatch<AppState, null, AnyAction>;
+  checkout(): void;
 }
 
 const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
@@ -186,6 +187,7 @@ const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
           variant="contained"
           color="primary"
           style={{ height: '48px', borderRadius: '24px', minWidth: '163px' }}
+          onClick={props.checkout}
         >
           <Typography variant="h3" color="inherit">
             <FormattedMessage id="checkout" />

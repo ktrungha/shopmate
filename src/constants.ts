@@ -40,4 +40,5 @@ export const API_PATHS = {
   addToCart: `${API_BASE}/shoppingcart/add`,
   updateCart: (id: string) => `${API_BASE}/shoppingcart/update/${id}`,
   cartRemove: (id: string) => `${API_BASE}/shoppingcart/removeProduct/${id}`,
+  getTaxes: `${API_BASE}/tax`,
 };
