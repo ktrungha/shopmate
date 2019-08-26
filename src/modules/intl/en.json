@@ -15,5 +15,7 @@
 
   "color": "Color",
   "size": "Size",
-  "quantity": "Quantity"
+  "quantity": "Quantity",
+  "addToCart": "Add to cart",
+  "addToWishList": "Add to wish list"
 }

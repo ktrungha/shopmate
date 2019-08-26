@@ -23,6 +23,7 @@ const Product: React.FC<IProductProps> = props => {
 
   const [productDetails, setProductDetails] = React.useState<some | null>(null);
   const [attributes, setAttributes] = React.useState<some[] | null>(null);
+  const [color, setColor] = React.useState<string | undefined>();
   const [size, setSize] = React.useState<string | undefined>();
   const [quantity, setQuantity] = React.useState<number>(0);
 
@@ -48,6 +49,8 @@ const Product: React.FC<IProductProps> = props => {
         setSize={setSize}
         quantity={quantity}
         setQuantity={setQuantity}
+        color={color}
+        setColor={setColor}
       />
     );
   }
