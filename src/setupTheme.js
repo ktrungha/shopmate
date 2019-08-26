@@ -38,6 +38,8 @@ export function getMUITheme() {
     typography: {
       htmlFontSize: 16,
       fontSize: 16,
+
+      button: { textTransform: 'none' },
       h1: {
         fontFamily: 'PlayfairDisplay',
         fontWeight: 'bold',

@@ -1,13 +1,16 @@
+import { Button, Container, Typography } from '@material-ui/core';
 import * as React from 'react';
-import { Line } from './elements';
-import { Typography, Container } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
-import { RED, BLACK_TEXT } from '../../../colors';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { AppState } from '../../../redux/reducers';
-import Link from './Link';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import styled from 'styled-components';
+import { BLACK_TEXT, RED } from '../../../colors';
 import { ROUTES } from '../../../constants';
+import { AppState } from '../../../redux/reducers';
+import { AuthDialog, logout, setAuthDialog } from '../../auth/redux/authReducer';
+import { Line } from './elements';
+import Link from './Link';
 
 const ActionSpan = styled.span`
   color: ${RED};
@@ -16,32 +19,53 @@ const ActionSpan = styled.span`
 
 interface IHeaderProps extends ReturnType<typeof mapStateToProps> {
   light?: boolean;
+  dispatch: ThunkDispatch<AppState, null, AnyAction>;
 }
 
 const Header: React.FunctionComponent<IHeaderProps> = props => {
-  const { light, departments } = props;
+  const { light, departments, auth, userData, dispatch } = props;
   return (
     <div>
       <div style={{ background: light ? '#EFEFEF' : undefined }}>
         <Container>
           <Line style={{ height: '49px', padding: '0 10px' }}>
-            <Typography variant="subtitle1">
-              <FormattedMessage
-                id="header.hi"
-                values={{
-                  signIn: (
-                    <ActionSpan>
-                      <FormattedMessage id="signIn" />
-                    </ActionSpan>
-                  ),
-                  register: (
-                    <ActionSpan>
-                      <FormattedMessage id="register" />
-                    </ActionSpan>
-                  ),
-                }}
-              />
-            </Typography>
+            {auth && userData ? (
+              <>
+                <Typography variant="subtitle1">
+                  <FormattedMessage id="header.hiAuth" values={{ name: userData.name }} />
+                </Typography>
+                &nbsp;
+                <Button
+                  style={{ borderRadius: '23px' }}
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => dispatch(logout())}
+                >
+                  <Typography variant="body2" color="inherit">
+                    <FormattedMessage id="signOut" />
+                  </Typography>
+                </Button>
+              </>
+            ) : (
+              <Typography variant="subtitle1">
+                <FormattedMessage
+                  id="header.hi"
+                  values={{
+                    signIn: (
+                      <ActionSpan onClick={() => dispatch(setAuthDialog(AuthDialog.login))}>
+                        <FormattedMessage id="signIn" />
+                      </ActionSpan>
+                    ),
+                    register: (
+                      <ActionSpan onClick={() => dispatch(setAuthDialog(AuthDialog.signUp))}>
+                        <FormattedMessage id="register" />
+                      </ActionSpan>
+                    ),
+                  }}
+                />
+              </Typography>
+            )}
             <Line
               style={{
                 flex: 1,
@@ -103,7 +127,11 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
 };
 
 function mapStateToProps(state: AppState) {
-  return { departments: state.common.departments };
+  return {
+    departments: state.common.departments,
+    auth: state.auth.auth,
+    userData: state.account.userData,
+  };
 }
 
 export default connect(mapStateToProps)(Header);

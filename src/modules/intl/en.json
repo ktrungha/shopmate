@@ -1,15 +1,18 @@
 {
   "header.hi": "Hi! {signIn} or {register}",
+  "header.hiAuth": "Hi {name}!",
 
   "serverProblem": "Problem with server at the moment. Please try again.",
 
   "signIn": "Sign in",
+  "signOut": "Sign out",
   "register": "Register",
   "dailyDeals": "Daily deals",
   "sell": "Sell",
   "helpContact": "Help and contact",
   "contact": "Contact",
   "privacyPolicy": "Privacy policy",
+  "retry": "Retry",
 
   "loadMore": "Load more ({num} remaining)",
 
@@ -17,5 +20,15 @@
   "size": "Size",
   "quantity": "Quantity",
   "addToCart": "Add to cart",
-  "addToWishList": "Add to wish list"
+  "addToWishList": "Add to wish list",
+
+  "auth.signIn": "Sign In",
+  "auth.signUp": "Sign Up",
+  "auth.email": "Email",
+  "auth.password": "Password",
+  "auth.repassword": "Re-type password",
+  "auth.forgotPassword": "Forgot password",
+  "auth.noAccount": "Don't have an account",
+  "auth.alreadyMember": "Already a member",
+  "auth.cannotCreateAccount": "Cannot create account!"
 }

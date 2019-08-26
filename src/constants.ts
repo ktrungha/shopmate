@@ -28,6 +28,7 @@ export const API_PATHS = {
   getCategory: (id: string) => `${API_BASE}/categories/${id}`,
   product: (id: string) => `${API_BASE}/products/${id}`,
   productAttributes: (id: string) => `${API_BASE}/attributes/inProduct/${id}`,
-  login: '',
-  tmp: 'tmp',
+  customers: `${API_BASE}/customers`,
+  customer: `${API_BASE}/customer`,
+  login: `${API_BASE}/customers/login`,
 };

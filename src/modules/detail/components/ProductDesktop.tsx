@@ -164,7 +164,7 @@ const ProductDesktop: React.FunctionComponent<IProductDesktopProps> = props => {
                       color="primary"
                       variant="contained"
                       size="large"
-                      style={{ height: '50px', borderRadius: '25px' }}
+                      style={{ height: '60px', borderRadius: '30px' }}
                     >
                       <Typography variant="h3" style={{ color: 'white' }}>
                         <FormattedMessage id="addToCart" />

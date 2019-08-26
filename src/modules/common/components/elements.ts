@@ -1,7 +1,7 @@
 import { InputBase, withStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import { DARK_GREY } from '../../../colors';
+import { LIGHT_GREY } from '../../../colors';
 
 export const CheckBox = styled.input``;
 
@@ -16,7 +16,7 @@ export const subHeader2: React.CSSProperties = {
 export const BootstrapInput = withStyles(theme => ({
   root: {
     borderRadius: 4,
-    border: `1px solid ${DARK_GREY}`,
+    border: `1px solid ${LIGHT_GREY}`,
   },
   input: {
     borderRadius: 4,
@@ -34,8 +34,8 @@ export const BootstrapInput = withStyles(theme => ({
     borderColor: theme.palette.error.main,
   },
   focused: {
-    boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-    borderColor: theme.palette.primary.main,
+    boxShadow: `${fade(theme.palette.secondary.main, 0.25)} 0 0 0 0.2rem`,
+    borderColor: theme.palette.secondary.main,
   },
 }))(InputBase);
 

@@ -10,9 +10,11 @@ import { REASON } from '../../common/components/SendHomeReasonDialog';
 import { SEND_HOME_REASONS } from '../../common/constants';
 import { fetchThunk } from '../../common/redux/thunks';
 import { ACCESS_TOKEN } from '../constants';
+import { stringify } from 'querystring';
 
 export enum AuthDialog {
   login,
+  signUp,
 }
 
 export interface AuthState {
@@ -23,7 +25,7 @@ export interface AuthState {
   readonly userData?: Readonly<some>;
 }
 
-export const in_ = createAction('auth/in', resolve => (skipSaga: boolean) => resolve({ skipSaga }));
+export const in_ = createAction('auth/in');
 export const out = createAction('auth/out');
 
 export const setAuthenticating = createAction('auth/setAuthenticating', resolve => (val: boolean) =>
@@ -41,13 +43,10 @@ export const setLoginErrorMsg = createAction('auth/setLoginErrorMsg', resolve =>
   resolve({ val }),
 );
 
-export function authIn(
-  userData: some,
-  skipSaga: boolean = false,
-): ThunkAction<void, AppState, null, Action<string>> {
+export function authIn(userData: some): ThunkAction<void, AppState, null, Action<string>> {
   return (dispatch, getState) => {
     dispatch(setUserData(userData));
-    dispatch(in_(skipSaga));
+    dispatch(in_());
   };
 }
 
@@ -57,10 +56,10 @@ export function validateAccessToken(): ThunkAction<void, AppState, null, Action<
     if (accessToken) {
       dispatch(setAuthenticating(true));
       try {
-        const json = await dispatch(fetchThunk(`${API_PATHS.tmp}`, 'get', true));
-        if (json.code === 200) {
-          dispatch(authIn(json.data));
-        } else if (getState().auth.auth) {
+        try {
+          const json = await dispatch(fetchThunk(`${API_PATHS.customer}`, 'get', true));
+          dispatch(authIn(json));
+        } catch (e) {
           dispatch(out());
           remove(ACCESS_TOKEN);
           dispatch(setUserData());
@@ -78,8 +77,28 @@ export function validateAccessToken(): ThunkAction<void, AppState, null, Action<
   };
 }
 
+export function signUp(
+  email: string,
+  password: string,
+): ThunkAction<void, AppState, null, Action<string>> {
+  return async (dispatch, getState) => {
+    const name = 'John Smith';
+    const json = await dispatch(
+      fetchThunk(
+        `${API_PATHS.customers}`,
+        'post',
+        false,
+        stringify({ name, email, password }),
+        'application/x-www-form-urlencoded',
+      ),
+    );
+    set(ACCESS_TOKEN, json.accessToken);
+    dispatch(authIn(json.customer));
+  };
+}
+
 export function login(
-  loginId: string,
+  email: string,
   password: string,
 ): ThunkAction<Promise<boolean>, AppState, null, Action<string>> {
   return async (dispatch, getState) => {
@@ -90,15 +109,16 @@ export function login(
           API_PATHS.login,
           'post',
           false,
-          JSON.stringify({ password, user_name: loginId }),
+          stringify({ password, email }),
+          'application/x-www-form-urlencoded',
         ),
       );
-      if (json.code === 200) {
-        set(ACCESS_TOKEN, json.access_token);
-        dispatch(authIn(json.data));
-        return true;
-      }
-      dispatch(setLoginErrorMsg(json.message));
+
+      set(ACCESS_TOKEN, json.accessToken);
+      dispatch(authIn(json.customer));
+      return true;
+    } catch (e) {
+      dispatch(setLoginErrorMsg('Wrong email or password'));
     } finally {
       dispatch(setAuthenticating(false));
     }

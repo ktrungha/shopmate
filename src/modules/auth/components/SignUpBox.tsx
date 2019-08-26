@@ -12,9 +12,9 @@ import LoadingButton from '../../common/components/LoadingButton';
 import {
   AuthDialog,
   closeAuthDialog,
-  login,
   setAuthDialog,
   setLoginErrorMsg,
+  signUp,
 } from '../redux/authReducer';
 import styles from './LoginBox.module.scss';
 
@@ -32,40 +32,46 @@ const mapState2Props = (state: AppState) => {
     loginErrorMsg: state.auth.loginErrorMsg,
   };
 };
-export interface ILoginBoxProps extends InjectedIntlProps, ReturnType<typeof mapState2Props> {
+export interface ISignUpBoxProps extends InjectedIntlProps, ReturnType<typeof mapState2Props> {
   dispatch: ThunkDispatch<AppState, null, Action<string>>;
 }
 
-export interface ILoginBoxState {
+export interface ISignUpBoxState {
   loginId: string;
   password: string;
+  repassword: string;
+  creating: boolean;
 }
 
 export default connect(mapState2Props)(
   injectIntl(
-    class LoginBox extends React.Component<ILoginBoxProps, ILoginBoxState> {
-      constructor(props: ILoginBoxProps) {
+    class SignUpBox extends React.Component<ISignUpBoxProps, ISignUpBoxState> {
+      constructor(props: ISignUpBoxProps) {
         super(props);
-        this.state = { loginId: '', password: '' };
+        this.state = { loginId: '', password: '', repassword: '', creating: false };
       }
 
       componentDidMount() {
         this.props.dispatch(setLoginErrorMsg());
       }
 
-      logIn = async (e: any) => {
+      signUp = async (e: any) => {
         e.preventDefault();
         const { loginId, password } = this.state;
-        const { dispatch } = this.props;
-        const success = await dispatch(login(loginId, password));
-        if (success) {
+        const { dispatch, intl } = this.props;
+        this.setState({ creating: true });
+        try {
+          await dispatch(signUp(loginId, password));
           dispatch(closeAuthDialog());
+        } catch (err) {
+          dispatch(setLoginErrorMsg(intl.formatMessage({ id: 'auth.cannotCreateAccount' })));
         }
+        this.setState({ creating: false });
       };
 
       public render() {
-        const { loginId, password } = this.state;
-        const { authenticating, loginErrorMsg, intl, dispatch } = this.props;
+        const { loginId, password, repassword, creating } = this.state;
+        const { loginErrorMsg, intl, dispatch } = this.props;
         return (
           <div
             style={{
@@ -77,14 +83,10 @@ export default connect(mapState2Props)(
             }}
           >
             <Typography variant="h2" style={{ fontWeight: 'normal', marginBottom: '41px' }}>
-              <FormattedMessage id="auth.signIn" />
+              <FormattedMessage id="auth.signUp" />
             </Typography>
-            <div
-              style={{
-                width: '300px',
-              }}
-            >
-              <form onSubmit={this.logIn}>
+            <div style={{ width: '300px' }}>
+              <form onSubmit={this.signUp}>
                 <div>
                   <BootstrapInput
                     style={{ height: '60px' }}
@@ -106,11 +108,18 @@ export default connect(mapState2Props)(
                     placeholder={intl.formatMessage({ id: 'auth.password' })}
                   />
                 </div>
-                <div
-                  style={{
-                    textAlign: 'center',
-                  }}
-                >
+                <div style={{ marginTop: '12px' }}>
+                  <BootstrapInput
+                    style={{ height: '60px' }}
+                    classes={{ input: styles.input }}
+                    fullWidth
+                    type={'password'}
+                    value={repassword}
+                    onChange={e => this.setState({ repassword: e.target.value })}
+                    placeholder={intl.formatMessage({ id: 'auth.repassword' })}
+                  />
+                </div>
+                <div style={{ textAlign: 'center' }}>
                   <div style={{ padding: '5px', color: RED, margin: '8px 0' }}>
                     <Typography variant="h3" color="inherit">
                       {loginErrorMsg ? <span>{loginErrorMsg}</span> : <>&nbsp;</>}
@@ -123,30 +132,32 @@ export default connect(mapState2Props)(
                       width: '221px',
                       height: '60px',
                       borderRadius: '30px',
+                      textTransform: 'none',
                     }}
                     variant="contained"
                     color="primary"
-                    loading={authenticating}
-                    onClick={this.logIn}
+                    loading={creating}
+                    onClick={this.signUp}
                   >
-                    <FormattedMessage id="auth.signIn" />
+                    <FormattedMessage id="auth.signUp" />
                   </LoadingButton>
                 </div>
               </form>
             </div>
             <Line
               style={{
-                marginTop: '48px',
-                justifyContent: 'space-between',
+                marginTop: '13.5px',
+                justifyContent: 'center',
                 flex: 1,
                 alignItems: 'flex-end',
               }}
             >
-              <RobotoSpan>
-                <FormattedMessage id="auth.forgotPassword" />
-              </RobotoSpan>
-              <RobotoSpan onClick={() => dispatch(setAuthDialog(AuthDialog.signUp))}>
-                <FormattedMessage id="auth.noAccount" />
+              <Typography variant="body1">
+                <FormattedMessage id="auth.alreadyMember" />
+                &nbsp;
+              </Typography>
+              <RobotoSpan onClick={() => dispatch(setAuthDialog(AuthDialog.login))}>
+                <FormattedMessage id="auth.signIn" />
               </RobotoSpan>
             </Line>
           </div>

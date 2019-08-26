@@ -12,6 +12,7 @@ export function fetchThunk(
   method: 'get' | 'post' = 'get',
   auth = true,
   body?: string | FormData,
+  contentType?: string,
 ): ThunkAction<Promise<some>, AppState, null, Action<string>> {
   return async (dispatch, getState) => {
     while (true) {
@@ -19,8 +20,7 @@ export function fetchThunk(
       try {
         const headers = {
           'user-key': get(ACCESS_TOKEN) || '',
-          'Content-Type': 'application/json',
-          'Accept-Language': getState().intl.locale.substring(0, 2),
+          'Content-Type': contentType || 'application/json',
         };
         if (!auth) {
           delete headers['user-key'];

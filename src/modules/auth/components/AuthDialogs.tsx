@@ -3,6 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import * as React from 'react';
 import { AuthDialog } from '../redux/authReducer';
 import LoginBox from './LoginBox';
+import SignUpBox from './SignUpBox';
 
 interface IAuthDialogsProps {
   authDialog?: AuthDialog;
@@ -18,13 +19,13 @@ class AuthDialogs extends React.PureComponent<IAuthDialogsProps, State> {
     const { authDialog, close } = this.props;
 
     return (
-      <Dialog open={authDialog !== undefined} maxWidth="md">
+      <Dialog open={authDialog !== undefined} maxWidth="md" PaperProps={{ style: { margin: 0 } }}>
         <div
           style={{
-            position: 'sticky',
+            position: 'absolute',
             display: 'flex',
             justifyContent: 'flex-end',
-
+            width: '100%',
             top: '0px',
             zIndex: 2,
           }}
@@ -35,13 +36,14 @@ class AuthDialogs extends React.PureComponent<IAuthDialogsProps, State> {
               marginTop: '8px',
             }}
             color="default"
-            size="small"
+            size="medium"
             onClick={close}
           >
-            <CloseIcon />
+            <CloseIcon fontSize="large" />
           </IconButton>
         </div>
         {authDialog === AuthDialog.login && <LoginBox />}
+        {authDialog === AuthDialog.signUp && <SignUpBox />}
       </Dialog>
     );
   }
