@@ -25,7 +25,7 @@ const MobileHeader: React.FunctionComponent<IMobileHeaderProps> = props => {
       <IconButton size="small" onClick={() => props.dispatch(goBack())}>
         <img alt="" src={back} />
       </IconButton>
-      <Link to="/" style={{ flex: 1, flexShrink: 1 }}>
+      <Link to="/" style={{ flex: 1, flexShrink: 1, textAlign: 'center' }}>
         <Typography variant="h2" color="primary">
           SHOPMATE
         </Typography>
