@@ -19,16 +19,16 @@ const ProductCardGrid: React.FunctionComponent<IProductCardGridProps> = props =>
 
   const fetchingGroup = (
     <>
-      <Grid item sm={4} lg={3}>
+      <Grid item xs={12} sm={4} lg={3}>
         <ProductCard />
       </Grid>
-      <Grid item sm={4} lg={3}>
+      <Grid item xs={12} sm={4} lg={3}>
         <ProductCard />
       </Grid>
-      <Grid item sm={4} lg={3}>
+      <Grid item xs={12} sm={4} lg={3}>
         <ProductCard />
       </Grid>
-      <Grid item sm={4} lg={3}>
+      <Grid item xs={12} sm={4} lg={3}>
         <ProductCard />
       </Grid>
     </>
@@ -37,9 +37,9 @@ const ProductCardGrid: React.FunctionComponent<IProductCardGridProps> = props =>
   if (data) {
     return (
       <>
-        <Grid container spacing={5}>
+        <Grid container spacing={5} alignContent="center">
           {data.products.map(one => (
-            <Grid key={one.product_id} item sm={4} lg={3}>
+            <Grid key={one.product_id} item xs={12} sm={4} lg={3}>
               <Link to={`${ROUTES.product.gen(one.product_id)}`}>
                 <ProductCard data={one} />
               </Link>

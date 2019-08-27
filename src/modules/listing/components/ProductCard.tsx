@@ -12,6 +12,7 @@ const baseStyle: React.CSSProperties = {
 const imageStyle: React.CSSProperties = {
   height: '163px',
   width: '100%',
+  maxWidth: '90vw',
   objectFit: 'contain',
 };
 

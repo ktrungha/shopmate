@@ -59,7 +59,7 @@ const All: React.FunctionComponent<IAllProps> = props => {
       />
     );
   }
-  return <AllMobile />;
+  return <AllMobile data={data} fetching={fetching} fetchMore={fetchMore} page={page} />;
 };
 
 function mapStateToProps(state: AppState) {
