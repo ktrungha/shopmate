@@ -70,7 +70,10 @@ const Department: React.FunctionComponent<IDepartmentProps> = props => {
       setFetching(true);
       const json = await dispatch(
         fetchThunk(
-          `${API_PATHS.productsInDepartment}?${stringify({ page: page + 1, limit: PAGE_SIZE })}`,
+          `${API_PATHS.productsInDepartment(id)}?${stringify({
+            page: page + 1,
+            limit: PAGE_SIZE,
+          })}`,
         ),
       );
       setData({ products: data.products.concat(json.rows), total: json.count });

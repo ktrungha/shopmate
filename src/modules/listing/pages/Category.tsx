@@ -60,7 +60,7 @@ const Category: React.FunctionComponent<ICategoryProps> = props => {
       setFetching(true);
       const json = await dispatch(
         fetchThunk(
-          `${API_PATHS.productsOfCategory}?${stringify({ page: page + 1, limit: PAGE_SIZE })}`,
+          `${API_PATHS.productsOfCategory(id)}?${stringify({ page: page + 1, limit: PAGE_SIZE })}`,
         ),
       );
       setData({ products: data.products.concat(json.rows), total: json.count });
