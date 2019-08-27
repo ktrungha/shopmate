@@ -80,7 +80,15 @@ const Category: React.FunctionComponent<ICategoryProps> = props => {
       />
     );
   }
-  return <CategoryMobile />;
+  return (
+    <CategoryMobile
+      categoryInfo={categoryInfo}
+      data={data}
+      fetching={fetching}
+      fetchMore={fetchMore}
+      page={page}
+    />
+  );
 };
 
 function mapStateToProps(state: AppState) {

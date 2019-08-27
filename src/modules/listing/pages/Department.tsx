@@ -91,7 +91,16 @@ const Department: React.FunctionComponent<IDepartmentProps> = props => {
       />
     );
   }
-  return <DepartmentMobile />;
+  return (
+    <DepartmentMobile
+      departmentInfo={departmentInfo}
+      categories={categories}
+      data={data}
+      fetching={fetching}
+      fetchMore={fetchMore}
+      page={page}
+    />
+  );
 };
 
 function mapStateToProps(state: AppState) {

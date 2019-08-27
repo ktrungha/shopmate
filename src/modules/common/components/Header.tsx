@@ -73,19 +73,19 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
             <Line
               style={{
                 flex: 1,
-                marginLeft: '20px',
+                marginLeft: '15px',
                 justifyContent: 'flex-start',
               }}
             >
-              <Typography variant="subtitle1" style={{ marginRight: '50px' }}>
+              <Typography variant="subtitle1" style={{ marginRight: '25px' }}>
                 <FormattedMessage id="dailyDeals" />
               </Typography>
 
-              <Typography variant="subtitle1" style={{ marginRight: '50px' }}>
+              <Typography variant="subtitle1" style={{ marginRight: '25px' }}>
                 <FormattedMessage id="sell" />
               </Typography>
 
-              <Typography variant="subtitle1" style={{ marginRight: '50px' }}>
+              <Typography variant="subtitle1" style={{ marginRight: '10px' }}>
                 <FormattedMessage id="helpContact" />
               </Typography>
             </Line>

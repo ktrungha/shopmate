@@ -72,7 +72,9 @@ const Search: React.FunctionComponent<ISearchProps> = props => {
       />
     );
   }
-  return <SearchMobile />;
+  return (
+    <SearchMobile input={input} data={data} fetching={fetching} fetchMore={fetchMore} page={page} />
+  );
 };
 
 function mapStateToProps(state: AppState) {

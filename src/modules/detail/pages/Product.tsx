@@ -66,7 +66,20 @@ const Product: React.FC<IProductProps> = props => {
       />
     );
   }
-  return <ProductMobile />;
+  return (
+    <ProductMobile
+      data={productDetails}
+      attributes={attributes}
+      size={size}
+      setSize={setSize}
+      quantity={quantity}
+      setQuantity={setQuantity}
+      color={color}
+      setColor={setColor}
+      addToCart={addToCartCaller}
+      fetching={fetching}
+    />
+  );
 };
 
 function mapStateToProps(state: AppState) {

@@ -125,13 +125,6 @@ const ProductDesktop: React.FunctionComponent<IProductDesktopProps> = props => {
                       ))}
                   </div>
                 </div>
-                <div style={{ marginTop: '20px' }}>
-                  <div>
-                    <Typography variant="h3" style={{ color: '#B4B4B4' }}>
-                      <FormattedMessage id="quantity" />
-                    </Typography>
-                  </div>
-                </div>
                 <div style={{ marginTop: '30px' }}>
                   <Line>
                     <LoadingButton

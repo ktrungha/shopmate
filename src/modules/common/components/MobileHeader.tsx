@@ -1,29 +1,66 @@
+import { Drawer, IconButton, List, ListItem, Typography } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { goBack } from 'connected-react-router';
 import * as React from 'react';
-import { Line } from './elements';
-import burger from '../../../svg/burger.svg';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { ROUTES } from '../../../constants';
+import { AppState } from '../../../redux/reducers';
 import back from '../../../svg/back.svg';
-import logo from '../../../svg/logo.svg';
+import burger from '../../../svg/burger.svg';
+import { Line } from './elements';
 import Link from './Link';
-import { IconButton } from '@material-ui/core';
 
-interface IMobileHeaderProps {}
+interface IMobileHeaderProps extends ReturnType<typeof mapStateToProps> {
+  dispatch: Dispatch;
+}
 
 const MobileHeader: React.FunctionComponent<IMobileHeaderProps> = props => {
+  const [openMenu, setOpenMenu] = React.useState(false);
+
+  const { departments } = props;
+
   return (
-    <Line style={{ height: '72px' }}>
-      <IconButton size="small">
+    <Line style={{ height: '72px', background: 'white' }}>
+      <IconButton size="small" onClick={() => props.dispatch(goBack())}>
         <img alt="" src={back} />
       </IconButton>
-      <div style={{ flex: 1, flexShrink: 1 }}>
-        <Link to="/">
-          <img alt="" src={logo} style={{ objectFit: 'contain' }} />
-        </Link>
-      </div>
-      <IconButton size="small">
+      <Link to="/" style={{ flex: 1, flexShrink: 1 }}>
+        <Typography variant="h2" color="primary">
+          SHOPMATE
+        </Typography>
+      </Link>
+      <IconButton size="small" onClick={() => setOpenMenu(true)}>
         <img alt="" src={burger} />
       </IconButton>
+      <Drawer open={openMenu} anchor="right" onClose={() => setOpenMenu(false)}>
+        <div style={{ margin: '15px' }}>
+          <IconButton size="small" onClick={() => setOpenMenu(false)}>
+            <CloseIcon />
+          </IconButton>
+        </div>
+        <List style={{ padding: '0 30px' }}>
+          {departments.map(one => (
+            <ListItem>
+              <Link
+                onClick={() => setOpenMenu(false)}
+                key={one.department_id}
+                to={ROUTES.department.gen(one.department_id)}
+              >
+                <Typography variant="h3" color="primary">
+                  {one.name}
+                </Typography>
+              </Link>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </Line>
   );
 };
 
-export default MobileHeader;
+function mapStateToProps(state: AppState) {
+  return { departments: state.common.departments };
+}
+
+export default connect(mapStateToProps)(MobileHeader);
