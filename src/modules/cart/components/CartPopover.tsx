@@ -45,7 +45,7 @@ const PriceDiv = styled.div`
   justify-content: center;
 `;
 
-interface ICartPopoverProps {
+interface ICartPopoverProps extends ReturnType<typeof mapStateToProps> {
   close(): void;
   content: some[];
   dispatch: ThunkDispatch<AppState, null, AnyAction>;
@@ -53,7 +53,7 @@ interface ICartPopoverProps {
 }
 
 const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
-  const { close, content, dispatch } = props;
+  const { close, content, auth, dispatch } = props;
   return (
     <Paper style={{ margin: '0 30px', position: 'relative' }} elevation={4}>
       <div
@@ -183,11 +183,19 @@ const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
             <FormattedMessage id="backToShop" />
           </Typography>
         </Button>
+        {!auth && (
+          <div>
+            <Typography variant="h3" color="error">
+              <FormattedMessage id="notSignedIn" />
+            </Typography>
+          </div>
+        )}
         <Button
           variant="contained"
           color="primary"
           style={{ height: '48px', borderRadius: '24px', minWidth: '163px' }}
           onClick={props.checkout}
+          disabled={!auth}
         >
           <Typography variant="h3" color="inherit">
             <FormattedMessage id="checkout" />
@@ -198,4 +206,10 @@ const CartPopover: React.FunctionComponent<ICartPopoverProps> = props => {
   );
 };
 
-export default connect()(CartPopover);
+function mapStateToProps(state: AppState) {
+  return {
+    auth: state.auth.auth,
+  };
+}
+
+export default connect(mapStateToProps)(CartPopover);

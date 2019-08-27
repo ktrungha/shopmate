@@ -11,16 +11,12 @@ import { setLocale } from './modules/intl/redux/intlReducer';
 import configureStore, { history } from './redux/configureStore';
 import * as serviceWorker from './serviceWorker';
 import './setupTheme';
-import { loadParamsToStore } from './utils';
 import { LS_LANG } from './constants';
 
 addLocaleData(locale_en);
 
 const store = configureStore({});
 
-window.addEventListener('popstate', () => loadParamsToStore(store.dispatch));
-
-loadParamsToStore(store.dispatch);
 const lang = localStorage.getItem(LS_LANG) || window.navigator.language;
 store.dispatch(setLocale(lang));
 

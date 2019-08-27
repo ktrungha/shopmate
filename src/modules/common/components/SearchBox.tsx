@@ -1,15 +1,14 @@
-import { IconButton, InputBase } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { stringify } from 'querystring';
 import * as React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { LIGHT_GREY } from '../../../colors';
 import { ROUTES, SEARCH_INPUT } from '../../../constants';
 import closeSvg from '../../../svg/close.svg';
 import searchSvg from '../../../svg/search.svg';
-import { Line, BootstrapInput } from './elements';
+import { BootstrapInput } from './elements';
 
 interface ISearchBoxProps extends InjectedIntlProps {
   dispatch: Dispatch;

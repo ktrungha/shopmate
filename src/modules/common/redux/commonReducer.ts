@@ -11,6 +11,7 @@ export interface CommonState {
   readonly departments: some[];
   readonly categories: some[];
   readonly tax?: some;
+  readonly shippingRegions?: some[];
 }
 
 export const setNetworkError = createAction(
@@ -28,19 +29,26 @@ export const setCategories = createAction('common/setCategories', resolve => (da
 
 export const setTax = createAction('common/setTax', resolve => (data: some) => resolve({ data }));
 
+export const setShippingRegions = createAction(
+  'common/setShippingRegions',
+  resolve => (data: some[]) => resolve({ data }),
+);
+
 export function initData(): ThunkAction<void, AppState, null, AnyAction> {
   return async (dispatch, getState) => {
     dispatch(retrieveCart());
 
-    const [departments, json, taxes] = await Promise.all([
+    const [departments, json, taxes, shippingRegions] = await Promise.all([
       dispatch(fetchThunk(`${API_PATHS.getDepartments}`)),
       dispatch(fetchThunk(`${API_PATHS.getCategories}`)),
       dispatch(fetchThunk(`${API_PATHS.getTaxes}`)),
+      dispatch(fetchThunk(`${API_PATHS.shippingRegions}`)),
     ]);
 
     dispatch(setDepartments(departments));
     dispatch(setCategories(json.rows));
     dispatch(setTax(taxes[0]));
+    dispatch(setShippingRegions(shippingRegions as some[]));
   };
 }
 
@@ -49,6 +57,7 @@ const actions = {
   setDepartments,
   setCategories,
   setTax,
+  setShippingRegions,
 };
 
 type Action = ActionType<typeof actions>;
@@ -66,6 +75,8 @@ export default function reducer(
       return { ...state, categories: action.payload.data };
     case getType(setTax):
       return { ...state, tax: action.payload.data };
+    case getType(setShippingRegions):
+      return { ...state, shippingRegions: action.payload.data };
     default:
       return state;
   }

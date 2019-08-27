@@ -1,6 +1,6 @@
 import { red } from '@material-ui/core/colors';
 import { createMuiTheme, darken, fade } from '@material-ui/core/styles';
-import { PRIMARY, SECONDARY, BLACK_TEXT } from './colors';
+import { PRIMARY, SECONDARY, BLACK_TEXT, LIGHT_GREY } from './colors';
 
 export function getTheme() {
   return {
@@ -32,7 +32,7 @@ export function getMUITheme() {
       },
       text: {
         primary: BLACK_TEXT,
-        secondary: fade(BLACK_TEXT, 0.6),
+        secondary: LIGHT_GREY,
       },
     },
     typography: {

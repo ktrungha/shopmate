@@ -13,6 +13,7 @@ export function fetchThunk(
   auth = true,
   body?: string | FormData,
   contentType?: string,
+  authHeader?: string,
 ): ThunkAction<Promise<some>, AppState, null, Action<string>> {
   return async (dispatch, getState) => {
     while (true) {
@@ -21,9 +22,13 @@ export function fetchThunk(
         const headers = {
           'user-key': get(ACCESS_TOKEN) || '',
           'Content-Type': contentType || 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${authHeader}`,
         };
         if (!auth) {
           delete headers['user-key'];
+        }
+        if (!authHeader) {
+          delete headers.Authorization;
         }
 
         if (body instanceof FormData) {
@@ -46,9 +51,8 @@ export function fetchThunk(
           return json;
         }
 
-        if (res.status === 400) {
-          const json = await res.json();
-          throw new Error(json.message);
+        if (res.status === 400 || res.status === 402) {
+          throw new Error(await res.text());
         }
         if (res.status === 401 || res.status === 403) {
           dispatch(out());

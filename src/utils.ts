@@ -1,29 +1,8 @@
-import { replace } from 'connected-react-router';
-import { AnyAction, Dispatch } from 'redux';
-import { ROUTES } from './constants';
-import { REASON } from './modules/common/components/SendHomeReasonDialog';
-import { SEND_HOME_REASONS } from './modules/common/constants';
+import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from './redux/reducers';
 
 export const DEV = process.env.NODE_ENV === 'development';
-
-export function loadParamsToStore(dispatch: Dispatch<AnyAction>) {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const pathname = window.location.pathname;
-    if (pathname === ROUTES.login) {
-    }
-  } catch (err) {
-    console.log(err);
-    dispatch(
-      replace({
-        pathname: '/',
-        search: `?${REASON}=${encodeURIComponent(SEND_HOME_REASONS.invalidLink)}`,
-      }),
-    );
-  }
-}
 
 export type ThunkController = {
   cancelled: boolean;

@@ -9,7 +9,6 @@ import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
 import LoadingButton from '../../common/components/LoadingButton';
 import LoadingIcon from '../../common/components/LoadingIcon';
-import QuantityBox from '../../common/components/QuantityBox';
 
 interface IProductDesktopProps {
   data: some | null;
@@ -25,18 +24,7 @@ interface IProductDesktopProps {
 }
 
 const ProductDesktop: React.FunctionComponent<IProductDesktopProps> = props => {
-  const {
-    data,
-    attributes,
-    size,
-    setSize,
-    quantity,
-    setQuantity,
-    color,
-    setColor,
-    addToCart,
-    fetching,
-  } = props;
+  const { data, attributes, size, setSize, color, setColor, addToCart, fetching } = props;
   return (
     <PageWrapper>
       <Header light />
@@ -51,11 +39,19 @@ const ProductDesktop: React.FunctionComponent<IProductDesktopProps> = props => {
                 <div>
                   <Typography variant="h2">{data.name}</Typography>
                 </div>
-                <div style={{ marginTop: '20px' }}>
-                  <Typography variant="h2" color="primary">
-                    ${data.price}
+                <Line style={{ marginTop: '20px', alignItems: 'baseline' }}>
+                  <Typography
+                    variant="h3"
+                    color="textSecondary"
+                    style={{ textDecoration: 'line-through' }}
+                  >
+                    ${data.discounted_price}
                   </Typography>
-                </div>
+                  &emsp;
+                  <Typography variant="h2" color="primary">
+                    ${data.discounted_price}
+                  </Typography>
+                </Line>
                 <div style={{ marginTop: '14px' }}>
                   <div>
                     <Typography variant="h3" style={{ color: '#B4B4B4' }}>
@@ -135,7 +131,6 @@ const ProductDesktop: React.FunctionComponent<IProductDesktopProps> = props => {
                       <FormattedMessage id="quantity" />
                     </Typography>
                   </div>
-                  <QuantityBox quantity={quantity} setQuantity={q => setQuantity(q)} />
                 </div>
                 <div style={{ marginTop: '30px' }}>
                   <Line>

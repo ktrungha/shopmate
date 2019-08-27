@@ -56,7 +56,7 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = props => {
       </div>
       <div style={{ height: '24px', marginTop: '10px' }}>
         <Typography variant="h3" color="primary">
-          ${data.price}
+          ${data.discounted_price}
         </Typography>
       </div>
     </Paper>

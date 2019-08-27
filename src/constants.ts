@@ -5,6 +5,7 @@ export type some = { [key: string]: any };
 export const LS_LANG = 'lang';
 export const SEARCH_INPUT = 'input';
 export const CART_ID_KEY = 'cartId';
+export const STRIPE_KEY = 'pk_test_NcwpaplBCuTL6I0THD44heRe';
 
 export const PAGE_SIZE = 20;
 
@@ -40,5 +41,12 @@ export const API_PATHS = {
   addToCart: `${API_BASE}/shoppingcart/add`,
   updateCart: (id: string) => `${API_BASE}/shoppingcart/update/${id}`,
   cartRemove: (id: string) => `${API_BASE}/shoppingcart/removeProduct/${id}`,
+  updateAddress: `${API_BASE}/customers/address`,
   getTaxes: `${API_BASE}/tax`,
+  shippingRegions: `${API_BASE}/shipping/regions`,
+  shippings: (id: string) => `${API_BASE}/shipping/regions/${id}`,
+  total: (id: string) => `${API_BASE}/shoppingcart/totalAmount/${id}`,
+  orders: `${API_BASE}/orders`,
+  stripeToken: 'https://api.stripe.com/v1/tokens',
+  stripeCharge: `${API_BASE}/stripe/charge`,
 };
