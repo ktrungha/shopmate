@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -94,7 +94,7 @@ const ConfirmationStep: React.FunctionComponent<IConfirmationStepProps> = props 
                     </TableCell>
                     <TableCell size="small">
                       <Typography variant="h3" color="primary">
-                        ${one.price}
+                        $<FormattedNumber value={one.price} />
                       </Typography>
                     </TableCell>
                   </TableRow>

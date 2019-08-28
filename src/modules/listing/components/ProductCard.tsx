@@ -3,6 +3,7 @@ import { some, PRODUCT_IMAGE_BASE } from '../../../constants';
 import { Paper, Typography } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import styled from 'styled-components';
+import { FormattedNumber } from 'react-intl';
 
 const baseStyle: React.CSSProperties = {
   height: '336px',
@@ -57,7 +58,7 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = props => {
       </div>
       <div style={{ height: '24px', marginTop: '10px' }}>
         <Typography variant="h3" color="primary">
-          ${data.discounted_price}
+          $<FormattedNumber value={data.discounted_price} />
         </Typography>
       </div>
     </Paper>

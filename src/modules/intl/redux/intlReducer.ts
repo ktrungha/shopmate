@@ -18,7 +18,7 @@ const actions = { setLocale };
 
 type Action = ActionType<typeof actions>;
 
-export default function reducer(state: IntlState = { locale: 'vi' }, action: Action) {
+export default function reducer(state: IntlState = { locale: 'en' }, action: Action) {
   switch (action.type) {
     case getType(setLocaleAction):
       return { ...state, locale: action.payload.locale };

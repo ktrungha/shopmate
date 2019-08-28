@@ -1,6 +1,6 @@
 import { Container, Typography } from '@material-ui/core';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import styled from 'styled-components';
 import { DARK_GREY, LIGHT_GREY, PRIMARY } from '../../../colors';
 import { PRODUCT_IMAGE_BASE, some } from '../../../constants';
@@ -48,11 +48,11 @@ const ProductMobile: React.FunctionComponent<IProductMobileProps> = props => {
                   color="textSecondary"
                   style={{ textDecoration: 'line-through' }}
                 >
-                  ${data.discounted_price}
+                  $<FormattedNumber value={data.price} />
                 </Typography>
                 &emsp;
                 <Typography variant="h2" color="primary">
-                  ${data.discounted_price}
+                  $<FormattedNumber value={data.discounted_price} />
                 </Typography>
               </Line>
               <Line style={{ marginTop: '10px', marginBottom: '45px' }}>
