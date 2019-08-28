@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Typography, Theme, withStyles, createStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
@@ -16,7 +16,6 @@ import {
   setAuthDialog,
   setLoginErrorMsg,
 } from '../redux/authReducer';
-import styles from './LoginBox.module.scss';
 
 const RobotoSpan = styled.span`
   font-family: 'Roboto';
@@ -32,7 +31,22 @@ const mapState2Props = (state: AppState) => {
     loginErrorMsg: state.auth.loginErrorMsg,
   };
 };
-export interface ILoginBoxProps extends InjectedIntlProps, ReturnType<typeof mapState2Props> {
+
+const styles = (theme: Theme) =>
+  createStyles({
+    wrapper: {
+      padding: '43px 40px 35px 40px',
+      textAlign: 'center',
+      height: '480px',
+      display: 'flex',
+      flexDirection: 'column',
+      [theme.breakpoints.down('md')]: { padding: '11px 10px' },
+    },
+  });
+export interface ILoginBoxProps
+  extends InjectedIntlProps,
+    ReturnType<typeof mapState2Props>,
+    WithStyles<typeof styles> {
   dispatch: ThunkDispatch<AppState, null, Action<string>>;
 }
 
@@ -42,116 +56,110 @@ export interface ILoginBoxState {
 }
 
 export default connect(mapState2Props)(
-  injectIntl(
-    class LoginBox extends React.Component<ILoginBoxProps, ILoginBoxState> {
-      constructor(props: ILoginBoxProps) {
-        super(props);
-        this.state = { loginId: '', password: '' };
-      }
-
-      componentDidMount() {
-        this.props.dispatch(setLoginErrorMsg());
-      }
-
-      logIn = async (e: any) => {
-        e.preventDefault();
-        const { loginId, password } = this.state;
-        const { dispatch } = this.props;
-        const success = await dispatch(login(loginId, password));
-        if (success) {
-          dispatch(closeAuthDialog());
+  withStyles(styles)(
+    injectIntl(
+      class LoginBox extends React.Component<ILoginBoxProps, ILoginBoxState> {
+        constructor(props: ILoginBoxProps) {
+          super(props);
+          this.state = { loginId: '', password: '' };
         }
-      };
 
-      public render() {
-        const { loginId, password } = this.state;
-        const { authenticating, loginErrorMsg, intl, dispatch } = this.props;
-        return (
-          <div
-            style={{
-              padding: '43px 40px 35px 40px',
-              textAlign: 'center',
-              height: '480px',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Typography variant="h2" style={{ fontWeight: 'normal', marginBottom: '41px' }}>
-              <FormattedMessage id="auth.signIn" />
-            </Typography>
-            <div
-              style={{
-                width: '300px',
-              }}
-            >
-              <form onSubmit={this.logIn}>
-                <div>
-                  <BootstrapInput
-                    style={{ height: '60px' }}
-                    classes={{ input: styles.input }}
-                    fullWidth
-                    value={loginId}
-                    onChange={e => this.setState({ loginId: e.target.value })}
-                    placeholder={intl.formatMessage({ id: 'auth.email' })}
-                  />
-                </div>
-                <div style={{ marginTop: '12px' }}>
-                  <BootstrapInput
-                    style={{ height: '60px' }}
-                    classes={{ input: styles.input }}
-                    fullWidth
-                    type={'password'}
-                    value={password}
-                    onChange={e => this.setState({ password: e.target.value })}
-                    placeholder={intl.formatMessage({ id: 'auth.password' })}
-                  />
-                </div>
-                <div
-                  style={{
-                    textAlign: 'center',
-                  }}
-                >
-                  <div style={{ padding: '5px', color: RED, margin: '8px 0' }}>
-                    <Typography variant="h3" color="inherit">
-                      {loginErrorMsg ? <span>{loginErrorMsg}</span> : <>&nbsp;</>}
-                    </Typography>
+        componentDidMount() {
+          this.props.dispatch(setLoginErrorMsg());
+        }
+
+        logIn = async (e: any) => {
+          e.preventDefault();
+          const { loginId, password } = this.state;
+          const { dispatch } = this.props;
+          const success = await dispatch(login(loginId, password));
+          if (success) {
+            dispatch(closeAuthDialog());
+          }
+        };
+
+        public render() {
+          const { loginId, password } = this.state;
+          const { authenticating, loginErrorMsg, classes, intl, dispatch } = this.props;
+          return (
+            <div className={classes.wrapper}>
+              <Typography variant="h2" style={{ fontWeight: 'normal', marginBottom: '41px' }}>
+                <FormattedMessage id="auth.signIn" />
+              </Typography>
+              <div
+                style={{
+                  width: '300px',
+                }}
+              >
+                <form onSubmit={this.logIn}>
+                  <div>
+                    <BootstrapInput
+                      style={{ height: '60px' }}
+                      inputProps={{ style: { textAlign: 'center' } }}
+                      fullWidth
+                      value={loginId}
+                      onChange={e => this.setState({ loginId: e.target.value })}
+                      placeholder={intl.formatMessage({ id: 'auth.email' })}
+                    />
                   </div>
-                  <LoadingButton
-                    size="large"
-                    type={'submit'}
+                  <div style={{ marginTop: '12px' }}>
+                    <BootstrapInput
+                      style={{ height: '60px' }}
+                      inputProps={{ style: { textAlign: 'center' } }}
+                      fullWidth
+                      type={'password'}
+                      value={password}
+                      onChange={e => this.setState({ password: e.target.value })}
+                      placeholder={intl.formatMessage({ id: 'auth.password' })}
+                    />
+                  </div>
+                  <div
                     style={{
-                      width: '221px',
-                      height: '60px',
-                      borderRadius: '30px',
+                      textAlign: 'center',
                     }}
-                    variant="contained"
-                    color="primary"
-                    loading={authenticating}
-                    onClick={this.logIn}
                   >
-                    <FormattedMessage id="auth.signIn" />
-                  </LoadingButton>
-                </div>
-              </form>
+                    <div style={{ padding: '5px', color: RED, margin: '8px 0' }}>
+                      <Typography variant="h3" color="inherit">
+                        {loginErrorMsg ? <span>{loginErrorMsg}</span> : <>&nbsp;</>}
+                      </Typography>
+                    </div>
+                    <LoadingButton
+                      size="large"
+                      type={'submit'}
+                      style={{
+                        width: '221px',
+                        height: '60px',
+                        borderRadius: '30px',
+                      }}
+                      variant="contained"
+                      color="primary"
+                      loading={authenticating}
+                      onClick={this.logIn}
+                    >
+                      <FormattedMessage id="auth.signIn" />
+                    </LoadingButton>
+                  </div>
+                </form>
+              </div>
+              <Line
+                style={{
+                  marginTop: '48px',
+                  justifyContent: 'space-between',
+                  flex: 1,
+                  alignItems: 'flex-end',
+                }}
+              >
+                <RobotoSpan>
+                  <FormattedMessage id="auth.forgotPassword" />
+                </RobotoSpan>
+                <RobotoSpan onClick={() => dispatch(setAuthDialog(AuthDialog.signUp))}>
+                  <FormattedMessage id="auth.noAccount" />
+                </RobotoSpan>
+              </Line>
             </div>
-            <Line
-              style={{
-                marginTop: '48px',
-                justifyContent: 'space-between',
-                flex: 1,
-                alignItems: 'flex-end',
-              }}
-            >
-              <RobotoSpan>
-                <FormattedMessage id="auth.forgotPassword" />
-              </RobotoSpan>
-              <RobotoSpan onClick={() => dispatch(setAuthDialog(AuthDialog.signUp))}>
-                <FormattedMessage id="auth.noAccount" />
-              </RobotoSpan>
-            </Line>
-          </div>
-        );
-      }
-    },
+          );
+        }
+      },
+    ),
   ),
 );
