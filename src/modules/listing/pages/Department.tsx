@@ -49,6 +49,7 @@ const Department: React.FunctionComponent<IDepartmentProps> = props => {
   // get the categories in this department
   React.useEffect(() => {
     const fetch = async () => {
+      setCategories(null);
       const json = await dispatch(fetchThunk(`${API_PATHS.getCategoriesInDepartment(id)}`));
       setCategories(json as some[]);
     };

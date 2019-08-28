@@ -19,7 +19,6 @@ const styles = (theme: Theme) =>
     list: {
       columnCount: 1,
       listStyle: 'none',
-      columnFill: 'revert',
       [theme.breakpoints.between('sm', 'md')]: { columnCount: 2 },
       [theme.breakpoints.up('md')]: { columnCount: 3 },
     },
