@@ -1,20 +1,27 @@
+import { createStyles, Theme, Typography, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
-import Link from '../../common/components/Link';
-import { Typography, useTheme, useMediaQuery } from '@material-ui/core';
 import { ROUTES, some } from '../../../constants';
+import Link from '../../common/components/Link';
 
-interface ICategoryListProps {
+const styles = (theme: Theme) =>
+  createStyles({
+    list: {
+      columnCount: 1,
+      listStyle: 'none',
+      [theme.breakpoints.between('sm', 'md')]: { columnCount: 2 },
+      [theme.breakpoints.up('md')]: { columnCount: 3 },
+    },
+  });
+
+interface ICategoryListProps extends WithStyles<typeof styles> {
   categories: some[];
 }
 
 const CategoryList: React.FunctionComponent<ICategoryListProps> = props => {
-  const { categories } = props;
-  const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up('md'));
-  const tablet = useMediaQuery(theme.breakpoints.up('sm'));
+  const { categories, classes } = props;
 
   return (
-    <ul style={{ columnCount: desktop ? 3 : tablet ? 2 : 1, listStyle: 'none' }}>
+    <ul className={classes.list}>
       {categories.map(one => (
         <li key={one.category_id}>
           <Link to={ROUTES.category.gen(one.category_id)}>
@@ -28,4 +35,4 @@ const CategoryList: React.FunctionComponent<ICategoryListProps> = props => {
   );
 };
 
-export default CategoryList;
+export default withStyles(styles)(CategoryList);
