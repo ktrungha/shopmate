@@ -40,7 +40,7 @@ const styles = (theme: Theme) =>
       height: '480px',
       display: 'flex',
       flexDirection: 'column',
-      [theme.breakpoints.down('md')]: { padding: '11px 10px' },
+      [theme.breakpoints.down('sm')]: { padding: '11px 10px' },
     },
   });
 export interface ILoginBoxProps

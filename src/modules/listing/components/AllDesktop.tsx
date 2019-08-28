@@ -1,12 +1,12 @@
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import * as React from 'react';
 import { LIGHT_GREY } from '../../../colors';
-import { ROUTES, some } from '../../../constants';
+import { some } from '../../../constants';
 import { PageWrapper } from '../../common/components/elements';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import Link from '../../common/components/Link';
 import { ProductsList } from '../../common/model';
+import CategoryList from './CategoryList';
 import ProductCardGrid from './ProductCardGrid';
 
 interface IAllDesktopProps {
@@ -25,17 +25,7 @@ const AllDesktop: React.FunctionComponent<IAllDesktopProps> = props => {
       <Header />
       <Container style={{ flex: 1 }}>
         <div style={{ padding: '67px 80px', marginTop: '23px', background: LIGHT_GREY }}>
-          <ul style={{ columnCount: 3, listStyle: 'none' }}>
-            {categories.map(one => (
-              <li key={one.category_id}>
-                <Link to={ROUTES.category.gen(one.category_id)}>
-                  <Typography variant="h3" style={{ color: 'white' }}>
-                    {one.name}
-                  </Typography>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <CategoryList categories={categories} />
         </div>
         <div style={{ margin: '23px 0' }}>
           <ProductCardGrid fetchMore={fetchMore} page={page} fetching={fetching} data={data} />

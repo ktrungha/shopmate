@@ -1,13 +1,13 @@
 import { Container, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { LIGHT_GREY } from '../../../colors';
-import { ROUTES, some } from '../../../constants';
+import { some } from '../../../constants';
 import { PageWrapper } from '../../common/components/elements';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import Link from '../../common/components/Link';
 import LoadingIcon from '../../common/components/LoadingIcon';
 import { ProductsList } from '../../common/model';
+import CategoryList from './CategoryList';
 import ProductCardGrid from './ProductCardGrid';
 
 interface IDepartmentDesktopProps {
@@ -32,17 +32,7 @@ const DepartmentDesktop: React.FunctionComponent<IDepartmentDesktopProps> = prop
               <div>
                 <Typography variant="h1">{departmentInfo.name}</Typography>
               </div>
-              <ul style={{ columnCount: 3, listStyle: 'none' }}>
-                {categories.map(one => (
-                  <li key={one.category_id}>
-                    <Link to={ROUTES.category.gen(one.category_id)}>
-                      <Typography variant="h3" style={{ color: 'white' }}>
-                        {one.name}
-                      </Typography>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <CategoryList categories={categories} />
             </>
           ) : (
             <LoadingIcon style={{ height: '100px' }} />
