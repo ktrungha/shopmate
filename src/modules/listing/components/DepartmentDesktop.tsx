@@ -1,11 +1,11 @@
 import { Container, Typography } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import * as React from 'react';
 import { LIGHT_GREY } from '../../../colors';
 import { some } from '../../../constants';
 import { PageWrapper } from '../../common/components/elements';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import LoadingIcon from '../../common/components/LoadingIcon';
 import { ProductsList } from '../../common/model';
 import CategoryList from './CategoryList';
 import ProductCardGrid from './ProductCardGrid';
@@ -27,16 +27,14 @@ const DepartmentDesktop: React.FunctionComponent<IDepartmentDesktopProps> = prop
       <Header />
       <Container style={{ flex: 1 }}>
         <div style={{ padding: '67px 80px', marginTop: '23px', background: LIGHT_GREY }}>
-          {categories && departmentInfo ? (
-            <>
-              <div>
-                <Typography variant="h1">{departmentInfo.name}</Typography>
-              </div>
-              <CategoryList categories={categories} />
-            </>
+          {departmentInfo ? (
+            <div>
+              <Typography variant="h2">{departmentInfo.name}</Typography>
+            </div>
           ) : (
-            <LoadingIcon style={{ height: '100px' }} />
+            <Skeleton width="250px" height="36px" />
           )}
+          <CategoryList categories={categories} />
         </div>
         <div style={{ margin: '23px 0' }}>
           <ProductCardGrid fetchMore={fetchMore} page={page} fetching={fetching} data={data} />

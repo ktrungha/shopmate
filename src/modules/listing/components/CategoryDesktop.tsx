@@ -1,11 +1,11 @@
 import { Container, Typography } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import * as React from 'react';
 import { LIGHT_GREY } from '../../../colors';
 import { some } from '../../../constants';
 import { PageWrapper } from '../../common/components/elements';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import LoadingIcon from '../../common/components/LoadingIcon';
 import { ProductsList } from '../../common/model';
 import ProductCardGrid from './ProductCardGrid';
 
@@ -30,7 +30,7 @@ const CategoryDesktop: React.FunctionComponent<ICategoryDesktopProps> = props =>
               {categoryInfo.name}
             </Typography>
           ) : (
-            <LoadingIcon style={{ height: '100px' }} />
+            <Skeleton width="200px" />
           )}
         </div>
         <div style={{ margin: '23px 0' }}>

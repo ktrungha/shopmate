@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { PageWrapper } from '../../common/components/elements';
-import MobileHeader from '../../common/components/MobileHeader';
 import { Container, Typography } from '@material-ui/core';
-import ProductCardGrid from './ProductCardGrid';
-import { ProductsList } from '../../common/model';
-import MobileFooter from '../../common/components/MobileFooter';
-import { some } from '../../../constants';
+import Skeleton from '@material-ui/lab/Skeleton';
+import * as React from 'react';
 import { LIGHT_GREY } from '../../../colors';
-import LoadingIcon from '../../common/components/LoadingIcon';
+import { some } from '../../../constants';
+import { PageWrapper } from '../../common/components/elements';
+import MobileFooter from '../../common/components/MobileFooter';
+import MobileHeader from '../../common/components/MobileHeader';
+import { ProductsList } from '../../common/model';
+import ProductCardGrid from './ProductCardGrid';
 
 interface ICategoryMobileProps {
   categoryInfo: some | null;
@@ -29,7 +29,7 @@ const CategoryMobile: React.FunctionComponent<ICategoryMobileProps> = props => {
               {categoryInfo.name}
             </Typography>
           ) : (
-            <LoadingIcon />
+            <Skeleton width="200px" />
           )}
         </div>
         <div style={{ margin: '10px 0' }}>
